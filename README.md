@@ -9,7 +9,7 @@ Track my project is simple project management and tracking tool with following f
 ### Manage project
  - Managing project includes changining the project **Stages** or performing a CRUD create, read, update, delete operation on the project.
 
-## Track Project
+### Track Project
  - Tracking project includes **5** key stages.
       - **New**: *Default* status when project is created.
       - **In Progress**: Work in progress.
