@@ -22,4 +22,4 @@ Track my project is simple project management and tracking tool with following f
     -  No of project for each *stage*.
     -  Project stats based on the year created.  
 ### Tech Stack
- - WunderGraph, NextJS, TypeScript & PostgreSQL, Chakra UI 
+ - WunderGraph, NextJS, TypeScript, PostgreSQL, Chakra UI 
