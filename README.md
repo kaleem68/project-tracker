@@ -1,7 +1,7 @@
 # Track My Project
 Track my project is simple project management and tracking tool with following features:
  - Manage projects
- - Track Projects: Maintain **5** Stages of the project
+ - Track Project: Maintain **5** Stages of the project
  - Dashboards
 
 ## Features
