@@ -1,18 +1,10 @@
 import { NextPage } from 'next';
 import { useQuery, withWunderGraph } from '../components/generated/nextjs';
+import AppHome from "../components/AppHome";
 
 const Home: NextPage = () => {
-	const projects = useQuery.GetProjects();
 	return (
-		<div>
-			{projects.result.status === "ok" &&
-				projects.result.data["db_findManyProject"].map(project=> {
-					return(
-						<div key={project.id}>{project.name}</div>
-					)
-				})
-			}
-		</div>
+		<AppHome/>
 	)
 };
 export default withWunderGraph(Home);
