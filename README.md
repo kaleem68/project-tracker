@@ -1,25 +1,31 @@
-# Track My Project
-Track my project is simple project management and tracking tool with following features:
- - Manage projects
- - Track Project: Maintain **5** Stages of the project
- - Dashboards
+# WunderGraph Postgres Starter
 
-## Features
+This example demonstrates how to use WunderGraph with Next.js & Postgres. We are going to make your database accessible through JSON-RPC to your Next.js app.
 
-### Manage project
- - Managing project includes changining the project **Stages** or performing a CRUD create, read, update, delete operation on the project.
+## Getting Started
 
-### Track Project
- - Tracking project includes **5** key stages.
-      - **New**: *Default* status when project is created.
-      - **In Progress**: Work in progress.
-      - **Completed**: Project finished successfully.
-      - **Cancelled**: Not completed, aborted.
-      - **Archived**: Cancelled or in no longer use.
+Install the dependencies and run the complete example in one command:
 
-### Dashboards
-- Home screen displays the dashboard stats with visual charts.
-    -  No of project for each *stage*.
-    -  Project stats based on the year created.  
-### Tech Stack
- - WunderGraph, NextJS, TypeScript, PostgreSQL, Chakra UI 
+```shell
+npm install && npm start
+```
+
+After a while, a new browser tab will open and you can start exploring the application. If no tab is open, navigate to [http://localhost:3000](http://localhost:3000).
+
+Running WunderGraph will automatically introspect the database and generate an API for you.
+You can add more Operations (e.g. Queries or Mutations) by adding more "\*.graphql" files to the directory `./wundergraph/operations`.
+Each file becomes an Operation. The Operation name is not relevant, the file name is.
+
+## Cleanup
+
+```shell
+npm run cleanup
+```
+
+## Learn More
+
+Read the [Docs](https://wundergraph.com/docs).
+
+## Got Questions?
+
+Join us on [Discord](https://wundergraph.com/discord)!
