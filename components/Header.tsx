@@ -8,7 +8,7 @@ interface HeaderProps{
     subtitle?: string,
     icon?: string
 }
-function Header({title, subtitle, icon}: HeaderProps) {
+function Header({title}: HeaderProps) {
     return (
         <HStack bg={'#ffffff'} justify='space-between' minH='84px' px='20px'>
             <HStack>

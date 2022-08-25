@@ -13,7 +13,6 @@ function Sidebar() {
         <Stack w='250px' bg='white' h='100vh'>
             <Stack py='23px' px='20px' spacing={'39px'}>
                 <HStack justify={'space-between'}>
-                    {/*<Image src={AimeLogo} />*/}
                     <Text fontSize={'18px'}>Track my project </Text>
                 </HStack>
                 <Stack>
