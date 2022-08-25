@@ -13,8 +13,7 @@ function Sidebar() {
         <Stack w='250px' bg='white' h='100vh'>
             <Stack py='23px' px='20px' spacing={'39px'}>
                 <HStack justify={'space-between'}>
-                    {/*<Image src={AimeLogo} />*/}
-                    <Text fontSize={'18px'}>Track my project </Text>
+                    <Text fontWeight={"600"} fontSize={'18px'}>Track my project </Text>
                 </HStack>
                 <Stack>
                     <InputGroup bg='#00000008' borderRadius={'8px'}>
@@ -23,18 +22,7 @@ function Sidebar() {
                     <Divider/>
                 </Stack>
             </Stack>
-
-            <Stack px='18px' spacing={'23px'}>
-                <Stack pl='18px'>
-                </Stack>
-
-                <Stack>
-                    <Stack pl='18px' spacing={'23px'}>
-                    </Stack>
-                </Stack>
-            </Stack>
         </Stack>
     );
 }
-
 export default Sidebar;
