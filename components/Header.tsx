@@ -19,5 +19,4 @@ function Header({title}: HeaderProps) {
         </HStack>
     );
 }
-
 export default Header;

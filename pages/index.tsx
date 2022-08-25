@@ -3,8 +3,6 @@ import {withWunderGraph } from '../components/generated/nextjs';
 import Dashboard from "../components/Dashboard";
 
 const Home: NextPage = () => {
-	return (
-		<Dashboard/>
-	)
+	return (<Dashboard/>)
 };
 export default withWunderGraph(Home);
