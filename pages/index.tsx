@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
-import { useQuery, withWunderGraph } from '../components/generated/nextjs';
-import AppHome from "../components/AppHome";
+import {withWunderGraph } from '../components/generated/nextjs';
+import Dashboard from "../components/Dashboard";
 
 const Home: NextPage = () => {
 	return (
-		<AppHome/>
+		<Dashboard/>
 	)
 };
 export default withWunderGraph(Home);
