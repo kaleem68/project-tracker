@@ -7,7 +7,6 @@ import {
     Stack,
 } from '@chakra-ui/react';
 import React from 'react';
-
 function Sidebar() {
     return (
         <Stack w='250px' bg='white' h='100vh'>

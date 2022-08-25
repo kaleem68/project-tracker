@@ -2,7 +2,7 @@ import {
     HStack,
     Text
 } from '@chakra-ui/react';
-import React, {useState} from 'react';
+import React from 'react';
 interface HeaderProps{
     title?: string,
     subtitle?: string,
