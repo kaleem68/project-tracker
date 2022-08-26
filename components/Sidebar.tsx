@@ -24,14 +24,8 @@ function Sidebar() {
                 <HStack justify={'space-between'}>
                     <Heading cursor={"pointer"} fontFamily={"cursive"} fontWeight={"600"} fontSize={'24px'}>Track My Project </Heading>
                 </HStack>
+                <Divider/>
                 <Stack>
-                    <InputGroup bg='#00000008' borderRadius={'8px'}>
-                        <Input type='search' placeholder='Search' _placeholder={{color: "#0000004D"}}/>
-                    </InputGroup>
-                    <Divider/>
-                </Stack>
-                <Stack>
-
                     <NextLink href='/' passHref>
                         <Link
                             color={isActive('/') ? '#5031c2' : '#000000'}
