@@ -113,10 +113,11 @@ const NewProjects: NextPage = () => {
                                                 <Badge ml={"10px"} colorScheme='purple'>New</Badge>
                                             </Td>
                                             <Td>
-                                                <Stack spacing={"10px"} isInline>
+                                                <Stack
+                                                    spacing={"10px"} isInline>
                                                     <Button onClick={()=> {changeStatusToProgress(data.id)}}
                                                         bg={"green.300"} size={"sm"}>Start</Button>
-                                                    <EditIcon fontSize={'16px'} cursor={"pointer"}/>
+                                                    <EditIcon alignSelf={'center'} fontSize={'16px'} cursor={"pointer"}/>
                                                 </Stack>
                                             </Td>
                                             <Td></Td>
