@@ -12,10 +12,8 @@ import {
 } from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
 import {useMutation} from "./generated/nextjs";
-import {CreateProjectInput} from "./generated/models";
-import {DEFAULT_PROJECT} from "../const";
 
-function CreateProject({isOpen, onClose, onSuccess}) {
+function EditProject({isOpen, onClose, onSuccess, defaultValue}) {
     const toast = useToast()
     const {
         handleSubmit,
@@ -23,18 +21,22 @@ function CreateProject({isOpen, onClose, onSuccess}) {
         reset,
         formState: {errors, isSubmitting},
     } = useForm({
-        defaultValues: DEFAULT_PROJECT
+        defaultValues: defaultValue
     })
-    const {mutate: createProject} = useMutation.CreateProject();
+    const {mutate: updateProject} = useMutation.UpdateProject();
 
-    async function onSubmit(values: CreateProjectInput) {
-        const {name, description} = values;
-        await createProject({
-            input: {name, description}
+    async function onSubmit(values: any) {
+        const {id, name, description} = values;
+        await updateProject({
+            input: {
+                id: id,
+                name: {set: name},
+                description: {set: description}
+            }
         })
         toast({
             title: 'Success',
-            description: "Project created",
+            description: "Project updated",
             status: 'success',
             duration: 5000,
             isClosable: true,
@@ -42,7 +44,6 @@ function CreateProject({isOpen, onClose, onSuccess}) {
         reset();
         onSuccess();
     }
-
     function closeForm(): void {
         reset();
         onClose();
@@ -52,7 +53,7 @@ function CreateProject({isOpen, onClose, onSuccess}) {
             <ModalOverlay/>
             <ModalContent>
                 <ModalHeader>
-                    Create Project
+                    Edit Project
                     <Badge ml={"10px"} colorScheme='purple'>New</Badge>
                 </ModalHeader>
                 <ModalCloseButton/>
@@ -122,5 +123,4 @@ function CreateProject({isOpen, onClose, onSuccess}) {
         </Modal>
     )
 }
-
-export default CreateProject;
+export default EditProject;
