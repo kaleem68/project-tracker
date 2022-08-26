@@ -1,4 +1,4 @@
-import {HStack, SimpleGrid, Stack, Text} from '@chakra-ui/react';
+import {HStack, Stack} from '@chakra-ui/react';
 import React from 'react';
 import Sidebar from "./Sidebar";
 import Header from "./Header";

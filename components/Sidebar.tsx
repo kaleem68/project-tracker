@@ -1,8 +1,7 @@
 import {
     Divider, Heading,
     HStack,
-    Input,
-    InputGroup, Link,
+    Link,
     Stack,
 } from '@chakra-ui/react';
 import React from 'react';
