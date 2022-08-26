@@ -10,8 +10,7 @@ import { useRouter } from 'next/router';
 import {AiOutlineHome} from "react-icons/Ai";
 import {Icon} from "@chakra-ui/icons";
 import {VscFiles} from "react-icons/vsc";
-import {GrInProgress} from "react-icons/gr";
-import {MdOutlineCreateNewFolder, MdDoneOutline,MdOutlineUnarchive,MdCancelPresentation} from "react-icons/md";
+import {MdOutlineCreateNewFolder} from "react-icons/md";
 function Sidebar() {
     const router = useRouter();
     function isActive(path){

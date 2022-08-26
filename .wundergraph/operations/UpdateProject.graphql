@@ -1,0 +1,12 @@
+mutation (
+        $id: Int!
+        $name: db_StringFieldUpdateOperationsInput!
+        $description: db_StringFieldUpdateOperationsInput!
+    ){
+    db_updateOneProject(
+        where: {id: $id},
+        data: {name: $name, description: $description}
+    ) {
+        id
+    }
+}
