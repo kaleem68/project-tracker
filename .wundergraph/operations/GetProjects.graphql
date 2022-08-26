@@ -1,6 +1,8 @@
 {
     db_findManyProject{
         id,
-        name
+        name,
+        description,
+        createdAt
     }
 }

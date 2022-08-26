@@ -8,18 +8,15 @@ import {
     ModalCloseButton,
     ModalContent,
     FormErrorMessage,
-    Stack, useToast
+    Stack, useToast, Badge, Textarea
 } from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
 import {useMutation} from "./generated/nextjs";
-
-interface Project {
-    name: string,
-}
-const defaultProject: Project = {
+import {CreateProjectInput} from "./generated/models";
+const defaultProject: CreateProjectInput = {
     name: '',
+    description: ''
 }
-
 function CreateProject({isOpen, onClose, onSuccess}) {
     const toast = useToast()
     const {
@@ -27,14 +24,15 @@ function CreateProject({isOpen, onClose, onSuccess}) {
         register,
         reset,
         formState: {errors},
-    } = useForm<Project>({
+    } = useForm<CreateProjectInput>({
         defaultValues: defaultProject
     })
-    const {mutate} = useMutation.CreateProject()
+    const {mutate} = useMutation.CreateProject();
 
-    async function onSubmit(values) {
-        await mutate({
-            input: values
+    async function onSubmit(values: CreateProjectInput) {
+        const {name, description} = values;
+        let saved = await mutate({
+            input: {name, description}
         });
         toast({
             title: 'Success',
@@ -43,10 +41,10 @@ function CreateProject({isOpen, onClose, onSuccess}) {
             duration: 5000,
             isClosable: true,
         })
+        console.log("saved ",saved)
         reset();
         onSuccess();
     }
-
     function closeForm(): void {
         reset();
         onClose();
@@ -57,6 +55,7 @@ function CreateProject({isOpen, onClose, onSuccess}) {
             <ModalContent>
                 <ModalHeader>
                     Create Project
+                    <Badge ml={"10px"} colorScheme='purple'>New</Badge>
                 </ModalHeader>
                 <ModalCloseButton/>
                 <ModalBody pb={6}>
@@ -73,6 +72,33 @@ function CreateProject({isOpen, onClose, onSuccess}) {
                             />
                             <FormErrorMessage>{errors.name?.type === 'required' && 'This is required'}</FormErrorMessage>
                             <FormErrorMessage>{errors.name?.type === 'maxLength' && 'Maximum length should be 255'}</FormErrorMessage>
+                        </FormControl>
+                        <br/>
+                        <FormControl isInvalid={errors?.description ? true : false}>
+                            <FormLabel htmlFor='description'>* Description</FormLabel>
+                            <Textarea
+                                rows={5}
+                                id='description'
+                                placeholder='description'
+                                {...register('description', {
+                                    required: 'This is required',
+                                    maxLength: {value: 1000, message: 'Maximum length should be 1000'}
+                                })}
+                            />
+                            <FormErrorMessage>{errors.description?.type === 'required' && 'This is required'}</FormErrorMessage>
+                            <FormErrorMessage>{errors.description?.type === 'maxLength' && 'Maximum length should be 1000'}</FormErrorMessage>
+                        </FormControl>
+                        <br/>
+                        <FormControl isInvalid={errors?.createdAt ? true : false}>
+                            <FormLabel htmlFor='createdAt'>* Creation Date</FormLabel>
+                            <Input
+                                type={"date"}
+                                id='createdAt'
+                                {...register('createdAt', {
+                                    required: 'This is required'
+                                })}
+                            />
+                            <FormErrorMessage>{errors.createdAt?.type === 'required' && 'This is required'}</FormErrorMessage>
                         </FormControl>
                         <br/>
                         <Stack alignItems={'flex-end'}>

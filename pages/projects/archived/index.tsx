@@ -1,11 +1,11 @@
 import {Center, HStack, SimpleGrid, Stack, Table, Tbody, Td, Thead, Tr, Text, useToast} from "@chakra-ui/react";
 import React from "react";
-import {AddIcon, DeleteIcon, EditIcon} from "@chakra-ui/icons";
+import {DeleteIcon} from "@chakra-ui/icons";
 import {NextPage} from "next";
-import {useMutation, useQuery, withWunderGraph} from "../../../components/generated/nextjs";
+import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 const ArchivedProjects: NextPage = () => {
     const toast = useToast();
-    const projects = useQuery.GetProjects();
+    const projects = useLiveQuery.GetProjects();
     const {mutate: deleteItem, result: deletedItem} = useMutation.DeleteProject();
     async function deleteProject(id: number) {
         const confirmDelete = window.confirm("Are you sure you want to delete this project?");
@@ -22,7 +22,6 @@ const ArchivedProjects: NextPage = () => {
                 duration: 5000,
                 isClosable: true,
             })
-            projects.refetch();
         }
     }
     return (

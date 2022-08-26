@@ -2,6 +2,7 @@
 
 export interface CreateProjectInput {
 	name: string;
+	description: string;
 }
 
 export interface DeleteProjectInput {
@@ -30,7 +31,7 @@ export interface HelloResponse {
 
 export interface CreateProjectResponseData {
 	db_createOneProject?: {
-		id: number;
+		name: string;
 	};
 }
 
@@ -44,6 +45,8 @@ export interface GetProjectsResponseData {
 	db_findManyProject: {
 		id: number;
 		name: string;
+		description: string;
+		createdAt: string;
 	}[];
 }
 

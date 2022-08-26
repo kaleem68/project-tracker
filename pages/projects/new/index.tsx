@@ -37,6 +37,8 @@ const NewProjects: NextPage = () => {
                                         fontSize='14px'>
                                         <Td>Id</Td>
                                         <Td>Name</Td>
+                                        <Td>Description</Td>
+                                        <Td>Date</Td>
                                         <Td>Actions</Td>
                                         <Td></Td>
                                         <Td></Td>
@@ -62,6 +64,21 @@ const NewProjects: NextPage = () => {
                                                     {data.name}
                                                 </Center>
                                             </Td>
+                                            <Td p='8px' mr='20px' w='181px'>
+                                                <Center h='40px'
+                                                        border={'1px solid #9FA2B4'}
+                                                        borderRadius='8px'>
+                                                    {data.description}
+                                                </Center>
+                                            </Td>
+                                            <Td p='8px' mr='20px' w='181px'>
+                                                <Center h='40px'
+                                                        border={'1px solid #9FA2B4'}
+                                                        borderRadius='8px'>
+                                                    {new Date(data.createdAt).toLocaleDateString()}
+                                                </Center>
+                                            </Td>
+
                                             <Td>
                                                 <Stack
                                                     spacing={"10px"}
