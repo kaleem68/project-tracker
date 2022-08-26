@@ -1,10 +1,30 @@
-import {Center, HStack, SimpleGrid, Stack, Table, Tbody, Td, Thead, Tr, Text} from "@chakra-ui/react";
+import {Center, HStack, SimpleGrid, Stack, Table, Tbody, Td, Thead, Tr, Text, useToast} from "@chakra-ui/react";
 import React from "react";
 import {AddIcon, DeleteIcon, EditIcon} from "@chakra-ui/icons";
 import {NextPage} from "next";
-import {useQuery, withWunderGraph} from "../../../components/generated/nextjs";
+import {useMutation, useQuery, withWunderGraph} from "../../../components/generated/nextjs";
 const ArchivedProjects: NextPage = () => {
+    const toast = useToast();
     const projects = useQuery.GetProjects();
+    const {mutate: deleteItem, result: deletedItem} = useMutation.DeleteProject();
+    async function deleteProject(id: number) {
+        const confirmDelete = window.confirm("Are you sure you want to delete this project?");
+        if (confirmDelete) {
+            await deleteItem({
+                input: {
+                    id: id
+                }
+            })
+            toast({
+                title: 'Success',
+                description: 'Project deleted',
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+            })
+            projects.refetch();
+        }
+    }
     return (
         <SimpleGrid gap='22px'>
             <Stack>
@@ -55,6 +75,7 @@ const ArchivedProjects: NextPage = () => {
                                                         fontSize={'16px'}
                                                         cursor={"pointer"}/>
                                                     <DeleteIcon
+                                                        onClick={() => deleteProject(data.id)}
                                                         fontSize={'16px'}
                                                         cursor={"pointer"}/>
                                                 </Stack>

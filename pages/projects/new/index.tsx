@@ -14,6 +14,10 @@ const NewProjects: NextPage = () => {
     function cancelCreateProject(){
         setCreateProject(false);
     }
+    function projectCreatedSuccessfully(){
+        projects.refetch();
+        setCreateProject(false);
+    }
     return (
         <>
             <SimpleGrid gap='22px'>
@@ -79,7 +83,7 @@ const NewProjects: NextPage = () => {
                 </Stack>
             </Stack>
         </SimpleGrid>
-            <CreateProject isOpen={createProject} onClose={cancelCreateProject}/>
+            <CreateProject isOpen={createProject} onClose={cancelCreateProject} onSuccess={projectCreatedSuccessfully}/>
         </>
     )
 }

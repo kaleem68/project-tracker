@@ -8,32 +8,46 @@ import {
     ModalCloseButton,
     ModalContent,
     FormErrorMessage,
-    Stack
+    Stack, useToast
 } from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
+import {useMutation} from "./generated/nextjs";
 
 interface Project {
-    title: string,
+    name: string,
 }
-
 const defaultProject: Project = {
-    title: '',
+    name: '',
 }
 
-function CreateProject({isOpen, onClose}) {
+function CreateProject({isOpen, onClose, onSuccess}) {
+    const toast = useToast()
     const {
         handleSubmit,
         register,
         reset,
         formState: {errors},
-    } = useForm({
+    } = useForm<Project>({
         defaultValues: defaultProject
     })
+    const {mutate} = useMutation.CreateProject()
 
-    function onSubmit(values) {
-        reset()
+    async function onSubmit(values) {
+        await mutate({
+            input: values
+        });
+        toast({
+            title: 'Success',
+            description: 'Project created',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+        })
+        reset();
+        onSuccess();
     }
-    function closeForm(){
+
+    function closeForm(): void {
         reset();
         onClose();
     }
@@ -47,18 +61,18 @@ function CreateProject({isOpen, onClose}) {
                 <ModalCloseButton/>
                 <ModalBody pb={6}>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl isInvalid={errors?.title ? true : false}>
-                            <FormLabel htmlFor='title'>* Title</FormLabel>
+                        <FormControl isInvalid={errors?.name ? true : false}>
+                            <FormLabel htmlFor='name'>* Name</FormLabel>
                             <Input
-                                id='title'
-                                placeholder='title'
-                                {...register('title', {
+                                id='name'
+                                placeholder='name'
+                                {...register('name', {
                                     required: 'This is required',
-                                    maxLength: {value: 4, message: 'Maximum length should be 4'}
+                                    maxLength: {value: 255, message: 'Maximum length should be 255'}
                                 })}
                             />
-                            <FormErrorMessage>{errors.title?.type === 'required' && 'This is required'}</FormErrorMessage>
-                            <FormErrorMessage>{errors.title?.type === 'maxLength' && 'Maximum length should be 4'}</FormErrorMessage>
+                            <FormErrorMessage>{errors.name?.type === 'required' && 'This is required'}</FormErrorMessage>
+                            <FormErrorMessage>{errors.name?.type === 'maxLength' && 'Maximum length should be 255'}</FormErrorMessage>
                         </FormControl>
                         <br/>
                         <Stack alignItems={'flex-end'}>
@@ -83,5 +97,4 @@ function CreateProject({isOpen, onClose}) {
         </Modal>
     )
 }
-
 export default CreateProject;
