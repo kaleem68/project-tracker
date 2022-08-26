@@ -1,0 +1,8 @@
+mutation (
+    $id: Int!
+    $status:db_Status
+){
+    db_updateOneProject(where: {id: $id}, data: {status: $status}) {
+        id
+    }
+}

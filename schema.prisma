@@ -10,6 +10,17 @@ model user {
 }
 
 model Project {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String
+  createdAt   DateTime @default(now())
+  status      Status   @default(NEW)
+}
+
+enum Status {
+  NEW
+  PROGRESS
+  COMPLETED
+  CANCELLED
+  ARCHIVED
 }

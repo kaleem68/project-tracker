@@ -1,10 +1,29 @@
-import {Center, HStack, SimpleGrid, Stack, Table, Tbody, Td, Thead, Tr, Text} from "@chakra-ui/react";
+import {Center, HStack, SimpleGrid, Stack, Table, Tbody, Td, Thead, Tr, Text, useToast} from "@chakra-ui/react";
 import React from "react";
-import {AddIcon, DeleteIcon, EditIcon} from "@chakra-ui/icons";
+import {DeleteIcon} from "@chakra-ui/icons";
 import {NextPage} from "next";
-import {useQuery, withWunderGraph} from "../../../components/generated/nextjs";
+import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 const ArchivedProjects: NextPage = () => {
-    const projects = useQuery.GetProjects();
+    const toast = useToast();
+    const projects = useLiveQuery.GetProjects();
+    const {mutate: deleteItem, result: deletedItem} = useMutation.DeleteProject();
+    async function deleteProject(id: number) {
+        const confirmDelete = window.confirm("Are you sure you want to delete this project?");
+        if (confirmDelete) {
+            await deleteItem({
+                input: {
+                    id: id
+                }
+            })
+            toast({
+                title: 'Success',
+                description: 'Project deleted',
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+            })
+        }
+    }
     return (
         <SimpleGrid gap='22px'>
             <Stack>
@@ -13,7 +32,6 @@ const ArchivedProjects: NextPage = () => {
                        border='1px solid #9FA2B4' borderColor={'#9FA2B4'}>
                     <HStack borderBottom={'1px solid #DFE0EB'} p='14px'>
                         <Text fontSize={'16px'} fontWeight='700'>Archived Projects</Text>
-                        <AddIcon cursor={"pointer"}/>
                     </HStack>
                     {projects.result.status === "ok" && (
                         <Stack p='16px'>
@@ -23,6 +41,7 @@ const ArchivedProjects: NextPage = () => {
                                         fontSize='14px'>
                                         <Td>Id</Td>
                                         <Td>Name</Td>
+                                        <Td>Actions</Td>
                                         <Td></Td>
                                         <Td></Td>
                                     </Tr>
@@ -51,10 +70,8 @@ const ArchivedProjects: NextPage = () => {
                                                 <Stack
                                                     spacing={"10px"}
                                                     isInline>
-                                                    <EditIcon
-                                                        fontSize={'16px'}
-                                                        cursor={"pointer"}/>
                                                     <DeleteIcon
+                                                        onClick={() => deleteProject(data.id)}
                                                         fontSize={'16px'}
                                                         cursor={"pointer"}/>
                                                 </Stack>

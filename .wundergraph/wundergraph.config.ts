@@ -13,6 +13,9 @@ import operations from './wundergraph.operations';
 const db = introspect.postgresql({
 	apiNamespace: 'db',
 	databaseURL: 'postgresql://admin:admin@localhost:54322/example?schema=public',
+	introspection:{
+		pollingIntervalSeconds: 5
+	}
 });
 
 const myApplication = new Application({

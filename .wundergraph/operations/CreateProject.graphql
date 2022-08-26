@@ -1,0 +1,11 @@
+mutation($name: String!, $description: String!) {
+    db_createOneProject(
+        data: {
+            name: $name,
+            description: $description
+        }
+    )
+    {
+        name
+    }
+}
