@@ -1,6 +1,6 @@
 import {Center, HStack, SimpleGrid, Stack, Table, Tbody, Td, Thead, Tr, Text} from "@chakra-ui/react";
 import React from "react";
-import {AddIcon, DeleteIcon, EditIcon} from "@chakra-ui/icons";
+import {EditIcon} from "@chakra-ui/icons";
 import {NextPage} from "next";
 import {useQuery, withWunderGraph} from "../../../components/generated/nextjs";
 const InProgressProjects: NextPage = () => {
@@ -13,7 +13,6 @@ const InProgressProjects: NextPage = () => {
                        border='1px solid #9FA2B4' borderColor={'#9FA2B4'}>
                     <HStack borderBottom={'1px solid #DFE0EB'} p='14px'>
                         <Text fontSize={'16px'} fontWeight='700'>In Progress Projects</Text>
-                        <AddIcon cursor={"pointer"}/>
                     </HStack>
                     {projects.result.status === "ok" && (
                         <Stack p='16px'>
@@ -23,7 +22,7 @@ const InProgressProjects: NextPage = () => {
                                         fontSize='14px'>
                                         <Td>Id</Td>
                                         <Td>Name</Td>
-                                        <Td></Td>
+                                        <Td>Actions</Td>
                                         <Td></Td>
                                     </Tr>
                                 </Thead>
@@ -52,9 +51,6 @@ const InProgressProjects: NextPage = () => {
                                                     spacing={"10px"}
                                                     isInline>
                                                     <EditIcon
-                                                        fontSize={'16px'}
-                                                        cursor={"pointer"}/>
-                                                    <DeleteIcon
                                                         fontSize={'16px'}
                                                         cursor={"pointer"}/>
                                                 </Stack>

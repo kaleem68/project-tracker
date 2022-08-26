@@ -37,6 +37,7 @@ const NewProjects: NextPage = () => {
                                         fontSize='14px'>
                                         <Td>Id</Td>
                                         <Td>Name</Td>
+                                        <Td>Actions</Td>
                                         <Td></Td>
                                         <Td></Td>
                                     </Tr>
@@ -66,9 +67,6 @@ const NewProjects: NextPage = () => {
                                                     spacing={"10px"}
                                                     isInline>
                                                     <EditIcon
-                                                        fontSize={'16px'}
-                                                        cursor={"pointer"}/>
-                                                    <DeleteIcon
                                                         fontSize={'16px'}
                                                         cursor={"pointer"}/>
                                                 </Stack>

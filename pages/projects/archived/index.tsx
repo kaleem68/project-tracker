@@ -33,7 +33,6 @@ const ArchivedProjects: NextPage = () => {
                        border='1px solid #9FA2B4' borderColor={'#9FA2B4'}>
                     <HStack borderBottom={'1px solid #DFE0EB'} p='14px'>
                         <Text fontSize={'16px'} fontWeight='700'>Archived Projects</Text>
-                        <AddIcon cursor={"pointer"}/>
                     </HStack>
                     {projects.result.status === "ok" && (
                         <Stack p='16px'>
@@ -43,6 +42,7 @@ const ArchivedProjects: NextPage = () => {
                                         fontSize='14px'>
                                         <Td>Id</Td>
                                         <Td>Name</Td>
+                                        <Td>Actions</Td>
                                         <Td></Td>
                                         <Td></Td>
                                     </Tr>
@@ -71,9 +71,6 @@ const ArchivedProjects: NextPage = () => {
                                                 <Stack
                                                     spacing={"10px"}
                                                     isInline>
-                                                    <EditIcon
-                                                        fontSize={'16px'}
-                                                        cursor={"pointer"}/>
                                                     <DeleteIcon
                                                         onClick={() => deleteProject(data.id)}
                                                         fontSize={'16px'}
