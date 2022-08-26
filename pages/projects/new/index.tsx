@@ -1,13 +1,28 @@
-import {Center, HStack, SimpleGrid, Stack, Table, Tbody, Td, Thead, Tr, Text} from "@chakra-ui/react";
+import {
+    Center,
+    HStack,
+    SimpleGrid,
+    Stack,
+    Table,
+    Tbody,
+    Td,
+    Thead,
+    Tr,
+    Text,
+    Badge,
+    Button,
+    useToast
+} from "@chakra-ui/react";
 import React, {useState} from "react";
-import {AddIcon, DeleteIcon, EditIcon} from "@chakra-ui/icons";
+import {AddIcon, EditIcon} from "@chakra-ui/icons";
 import {NextPage} from "next";
-import {useQuery, withWunderGraph} from "../../../components/generated/nextjs";
+import {useMutation, useQuery, withWunderGraph} from "../../../components/generated/nextjs";
 import CreateProject from "../../../components/CreateProject";
 const NewProjects: NextPage = () => {
+    const toast = useToast()
     const [createProject, setCreateProject] = useState(false);
     const projects = useQuery.GetProjects();
-
+    const {mutate: updateProjectStatus} = useMutation.UpdateProjectStatus();
     function enableCreateProject(){
         setCreateProject(true);
     }
@@ -18,6 +33,21 @@ const NewProjects: NextPage = () => {
         projects.refetch();
         setCreateProject(false);
     }
+    async function changeStatusToProgress(id: number) {
+        await updateProjectStatus({
+            input: {
+                id: id,
+                status: "PROGRESS"
+            }
+        })
+        toast({
+            title: "Project status changed to progress",
+            status: "success",
+            duration: 4000,
+            isClosable: true
+        })
+    }
+
     return (
         <>
             <SimpleGrid gap='22px'>
@@ -39,6 +69,7 @@ const NewProjects: NextPage = () => {
                                         <Td>Name</Td>
                                         <Td>Description</Td>
                                         <Td>Date</Td>
+                                        <Td>Status</Td>
                                         <Td>Actions</Td>
                                         <Td></Td>
                                         <Td></Td>
@@ -78,14 +109,14 @@ const NewProjects: NextPage = () => {
                                                     {new Date(data.createdAt).toLocaleDateString()}
                                                 </Center>
                                             </Td>
-
+                                            <Td ml={"10px"}>
+                                                <Badge ml={"10px"} colorScheme='purple'>New</Badge>
+                                            </Td>
                                             <Td>
-                                                <Stack
-                                                    spacing={"10px"}
-                                                    isInline>
-                                                    <EditIcon
-                                                        fontSize={'16px'}
-                                                        cursor={"pointer"}/>
+                                                <Stack spacing={"10px"} isInline>
+                                                    <Button onClick={()=> {changeStatusToProgress(data.id)}}
+                                                        bg={"green.300"} size={"sm"}>Start</Button>
+                                                    <EditIcon fontSize={'16px'} cursor={"pointer"}/>
                                                 </Stack>
                                             </Td>
                                             <Td></Td>

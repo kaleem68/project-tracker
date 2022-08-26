@@ -11,6 +11,9 @@ import type {
 	GetProjectsResponseData,
 	HelloResponse,
 	HelloResponseData,
+	UpdateProjectStatusResponse,
+	UpdateProjectStatusInput,
+	UpdateProjectStatusResponseData,
 } from "./models";
 import { createContext } from "react";
 import {
@@ -36,7 +39,7 @@ const defaultWunderGraphContextProperties: WunderGraphContextProperties<Role> = 
 	ssrCache: {},
 	client: null,
 	clientConfig: {
-		applicationHash: "1744a889",
+		applicationHash: "a4f1c6bc",
 		applicationPath: "app/main",
 		baseURL: "http://localhost:9991",
 		sdkVersion: "0.96.1",
@@ -81,6 +84,11 @@ export const useMutation = {
 	DeleteProject: () =>
 		hooks.useMutationWithInput<DeleteProjectInput, DeleteProjectResponseData, Role>(WunderGraphContext, {
 			operationName: "DeleteProject",
+			requiresAuthentication: false,
+		}),
+	UpdateProjectStatus: () =>
+		hooks.useMutationWithInput<UpdateProjectStatusInput, UpdateProjectStatusResponseData, Role>(WunderGraphContext, {
+			operationName: "UpdateProjectStatus",
 			requiresAuthentication: false,
 		}),
 };

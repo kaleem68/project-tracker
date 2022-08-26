@@ -9,6 +9,11 @@ export interface DeleteProjectInput {
 	id: number;
 }
 
+export interface UpdateProjectStatusInput {
+	id: number;
+	status?: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
+}
+
 export interface CreateProjectResponse {
 	data?: CreateProjectResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
@@ -26,6 +31,11 @@ export interface GetProjectsResponse {
 
 export interface HelloResponse {
 	data?: HelloResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
+export interface UpdateProjectStatusResponse {
+	data?: UpdateProjectStatusResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
@@ -52,6 +62,12 @@ export interface GetProjectsResponseData {
 
 export interface HelloResponseData {
 	gql_hello?: string;
+}
+
+export interface UpdateProjectStatusResponseData {
+	db_updateOneProject?: {
+		id: number;
+	};
 }
 
 export type JSONValue = string | number | boolean | JSONObject | Array<JSONValue>;

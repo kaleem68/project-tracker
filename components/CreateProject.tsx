@@ -1,4 +1,4 @@
-import {Modal, ModalFooter, ModalHeader, ModalOverlay} from "@chakra-ui/modal";
+import {Modal, ModalHeader, ModalOverlay} from "@chakra-ui/modal";
 import {
     Button,
     FormControl,
