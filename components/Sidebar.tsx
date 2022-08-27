@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import {AiOutlineHome} from "react-icons/Ai";
 import {Icon} from "@chakra-ui/icons";
 import {VscFiles} from "react-icons/vsc";
-import {MdOutlineCreateNewFolder, MdDoneOutline} from "react-icons/md";
+import {MdOutlineCreateNewFolder, MdDoneOutline, MdCancelPresentation} from "react-icons/md";
 import {GrInProgress} from "react-icons/gr";
 function Sidebar() {
     const router = useRouter();
@@ -92,6 +92,21 @@ function Sidebar() {
                                 textAlign={"center"}>
                                 <Icon mb={"-2px"} mr={"3px"} w={5} h={4} as={MdDoneOutline}/>
                                 Completed
+                            </Link>
+                        </NextLink>
+                        <NextLink href='/projects/cancelled' passHref>
+                            <Link
+                                alignSelf={"flex-end"}
+                                w={"90%"}
+                                borderLeft={"1px solid gray.600"}
+                                color={isActive('/projects/cancelled') ? '#5031c2' : '#000000'}
+                                bg={isActive('/projects/cancelled') ? '#EDF2F7' : ''}
+                                _hover={isActive('/projects/cancelled') ? {bg: '#dadada'} : {}}
+                                p={"10px"}
+                                borderRadius={"10px"}
+                                textAlign={"center"}>
+                                <Icon mb={"-2px"} mr={"3px"} w={5} h={4} as={MdCancelPresentation}/>
+                                Cancelled
                             </Link>
                         </NextLink>
                     </>
