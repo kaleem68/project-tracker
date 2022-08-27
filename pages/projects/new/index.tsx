@@ -16,15 +16,20 @@ import {
 import React, {useState} from "react";
 import {AddIcon, EditIcon} from "@chakra-ui/icons";
 import {NextPage} from "next";
-import {useMutation, useQuery, withWunderGraph} from "../../../components/generated/nextjs";
+import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 import CreateProject from "../../../components/CreateProject";
 import EditProject from "../../../components/EditProject";
 import {formatToCurrency} from "../../../apputil";
 import {EditProjectPropsHeadingStatus, UpdateProject} from "../../../interfaces";
 
 const NewProjects: NextPage = () => {
-    const toast = useToast()
-    const projects = useQuery.GetProjects();
+    const toast = useToast();
+    const projects = useLiveQuery.GetProjectsByStatus({
+        input: {
+            status: {equals: "NEW"}
+        }
+    });
+
     const {mutate: updateProjectStatus} = useMutation.UpdateProjectStatus();
     const {mutate: archiveProject} = useMutation.UpdateArchiveStatus();
 
@@ -58,7 +63,6 @@ const NewProjects: NextPage = () => {
     }
 
     function projectSaved() {
-        projects.refetch();
         setCreateProject(false);
         setEditProject(false);
     }

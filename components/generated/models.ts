@@ -11,6 +11,10 @@ export interface DeleteProjectInput {
 	id: number;
 }
 
+export interface GetArchivedProjectsInput {
+	archived?: db_BoolFilter;
+}
+
 export interface GetProjectsByStatusInput {
 	status: db_EnumStatusFilter;
 }
@@ -39,6 +43,11 @@ export interface CreateProjectResponse {
 
 export interface DeleteProjectResponse {
 	data?: DeleteProjectResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
+export interface GetArchivedProjectsResponse {
+	data?: GetArchivedProjectsResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
@@ -84,6 +93,17 @@ export interface DeleteProjectResponseData {
 	};
 }
 
+export interface GetArchivedProjectsResponseData {
+	db_findManyProject: {
+		id: number;
+		name: string;
+		description: string;
+		createdAt: string;
+		budget: number;
+		archived: boolean;
+	}[];
+}
+
 export interface GetProjectsResponseData {
 	db_findManyProject: {
 		id: number;
@@ -98,6 +118,11 @@ export interface GetProjectsResponseData {
 export interface GetProjectsByStatusResponseData {
 	db_findManyProject: {
 		id: number;
+		name: string;
+		description: string;
+		createdAt: string;
+		budget: number;
+		archived: boolean;
 	}[];
 }
 
@@ -121,6 +146,16 @@ export interface UpdateProjectStatusResponseData {
 	db_updateOneProject?: {
 		id: number;
 	};
+}
+
+export interface db_BoolFilter {
+	equals?: boolean;
+	not?: db_NestedBoolFilter;
+}
+
+export interface db_NestedBoolFilter {
+	equals?: boolean;
+	not?: db_NestedBoolFilter;
 }
 
 export interface db_EnumStatusFilter {
