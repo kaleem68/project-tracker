@@ -26,6 +26,7 @@ const NewProjects: NextPage = () => {
     const toast = useToast()
     const projects = useQuery.GetProjects();
     const {mutate: updateProjectStatus} = useMutation.UpdateProjectStatus();
+    const {mutate: archiveProject} = useMutation.UpdateArchiveStatus();
 
     const [createProject, setCreateProject] = useState<boolean>(false);
     const [editProject, setEditProject] = useState<boolean>(false);
@@ -88,17 +89,17 @@ const NewProjects: NextPage = () => {
             })
         }
     }
-    async function archiveProject(id: number) {
-        let resp = await updateProjectStatus({
+    async function archiveProjectStatus(id: number) {
+        let resp = await archiveProject({
             input: {
                 id: id,
-                status: "PROGRESS"
+                archived: {set: true}
             }
         })
         if(resp.status === "ok" && resp.data.db_updateOneProject){
             toast({
                 title: 'Success',
-                description: "Project status changed to progress",
+                description: "Project archived",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
@@ -194,7 +195,7 @@ const NewProjects: NextPage = () => {
                                                     <Stack
                                                         spacing={"10px"} isInline>
                                                         <Button onClick={() => {changeStatusToProgress(data.id)}} bg={"green.300"} size={"sm"}>Start</Button>
-                                                        <Button onClick={() => {changeStatusToProgress(data.id)}} bg={"blue.300"} size={"sm"}>Archive</Button>
+                                                        <Button onClick={() => {archiveProjectStatus(data.id)}} bg={"blue.300"} size={"sm"}>Archive</Button>
 
                                                         <EditIcon
                                                             onClick={() => {

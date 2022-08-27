@@ -11,7 +11,8 @@ import {
     Text,
     Badge,
     Button,
-    useToast
+    useToast,
+    VStack
 } from "@chakra-ui/react";
 import React, {useState} from "react";
 import {EditIcon} from "@chakra-ui/icons";
@@ -25,6 +26,7 @@ const InProgress: NextPage = () => {
     const toast = useToast()
     const projects = useQuery.GetProjects();
     const {mutate: updateProjectStatus} = useMutation.UpdateProjectStatus();
+    const {mutate: archiveProject} = useMutation.UpdateArchiveStatus();
 
     const [editProject, setEditProject] = useState<boolean>(false);
     const [projectToBeEdited, setProjectToBeEdited] = useState<UpdateProject>(null);
@@ -73,6 +75,32 @@ const InProgress: NextPage = () => {
             })
         }
         else{
+            toast({
+                title: "Error",
+                description: "Oops, Something went wrong",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
+        }
+    }
+    async function archiveProjectStatus(id: number) {
+        let resp = await archiveProject({
+            input: {
+                id: id,
+                archived: {set: true}
+            }
+        })
+        if(resp.status === "ok" && resp.data.db_updateOneProject){
+            toast({
+                title: 'Success',
+                description: "Project Archived",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+            })
+        }
+        else {
             toast({
                 title: "Error",
                 description: "Oops, Something went wrong",
@@ -159,8 +187,11 @@ const InProgress: NextPage = () => {
                                                 </Td>
                                                 <Td>
                                                     <Stack spacing={"10px"} isInline>
-                                                        <Button onClick={() => {completeOrCancel(true, data.id)}} bg={"green.300"} size={"sm"}>Complete</Button>
-                                                        <Button onClick={() => {completeOrCancel(false, data.id)}} bg={"red.300"} size={"sm"}>Cancel</Button>
+                                                        <VStack>
+                                                        <Button onClick={() => {completeOrCancel(true, data.id)}} bg={"green.300"} size={"xs"}>Complete</Button>
+                                                        <Button onClick={() => {archiveProjectStatus(data.id)}} bg={"blue.300"} size={"xs"}>Archive</Button>
+                                                        <Button onClick={() => {completeOrCancel(false, data.id)}} bg={"red.300"} size={"xs"}>Cancel</Button>
+                                                        </VStack>
                                                         <EditIcon
                                                             onClick={() => {
                                                                 enableEditProject(data)
