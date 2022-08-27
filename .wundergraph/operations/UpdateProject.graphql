@@ -2,10 +2,15 @@ mutation (
         $id: Int!
         $name: db_StringFieldUpdateOperationsInput!
         $description: db_StringFieldUpdateOperationsInput!
+        $budget: db_FloatFieldUpdateOperationsInput
     ){
     db_updateOneProject(
         where: {id: $id},
-        data: {name: $name, description: $description}
+        data: {
+            name: $name,
+            description: $description,
+            budget: $budget
+        }
     ) {
         id
     }

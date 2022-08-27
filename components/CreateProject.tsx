@@ -14,29 +14,27 @@ import {useForm} from "react-hook-form";
 import {useMutation} from "./generated/nextjs";
 import {CreateProjectInput} from "./generated/models";
 import {DEFAULT_PROJECT} from "../const";
+import {CreateProjectProps} from "../interfaces";
 
-function CreateProject({isOpen, onClose, onSuccess}) {
+function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
     const toast = useToast()
     const {
         handleSubmit,
         register,
         reset,
-        formState: {errors, isSubmitting},
-    } = useForm({
+        formState: {errors, isSubmitting}
+    } = useForm<CreateProjectInput>({
         defaultValues: DEFAULT_PROJECT
     })
     const {mutate: createProject} = useMutation.CreateProject();
-
     async function onSubmit(values: CreateProjectInput) {
         const {name, description} = values;
         const createdAt = new Date(values.createdAt).toISOString();
-        console.log(createdAt)
         let budget = +values.budget;
         let resp = await createProject({
             input: {name, description, budget, createdAt}
         })
         if (resp.status == "error") {
-            console.log(resp)
             toast({
                 title: "Error",
                 description: "Oops, Something went wrong",
@@ -57,7 +55,6 @@ function CreateProject({isOpen, onClose, onSuccess}) {
             reset();
         }
     }
-
     function closeForm(): void {
         reset();
         onClose();
@@ -73,7 +70,7 @@ function CreateProject({isOpen, onClose, onSuccess}) {
                 <ModalCloseButton/>
                 <ModalBody pb={6}>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl isInvalid={errors?.name ? true : false}>
+                        <FormControl isInvalid={!!errors?.name}>
                             <FormLabel htmlFor='name'>* Name</FormLabel>
                             <Input
                                 id='name'
@@ -87,7 +84,7 @@ function CreateProject({isOpen, onClose, onSuccess}) {
                             <FormErrorMessage>{ (errors.name?.type === 'required' || errors.name?.type === "maxLength") && errors.name.message }</FormErrorMessage>
                         </FormControl>
                         <br/>
-                        <FormControl isInvalid={errors?.description ? true : false}>
+                        <FormControl isInvalid={!!errors?.description}>
                             <FormLabel htmlFor='description'>* Description</FormLabel>
                             <Textarea
                                 rows={5}
@@ -103,7 +100,7 @@ function CreateProject({isOpen, onClose, onSuccess}) {
                         </FormControl>
                         <br/>
 
-                        <FormControl isInvalid={errors?.budget ? true : false}>
+                        <FormControl isInvalid={!!errors?.budget}>
                             <FormLabel htmlFor='budget'>* Budget</FormLabel>
                             <Input
                                 type={"number"}
@@ -118,7 +115,7 @@ function CreateProject({isOpen, onClose, onSuccess}) {
                             <FormErrorMessage>{ (errors.budget?.type === 'required' || errors.budget?.type === "min") && errors.budget.message }</FormErrorMessage>
                         </FormControl>
                         <br/>
-                        <FormControl isInvalid={errors?.createdAt ? true : false}>
+                        <FormControl isInvalid={!!errors?.createdAt}>
                             <FormLabel htmlFor='createdAt'>* Date</FormLabel>
                             <Input
                                 type={"date"}
@@ -153,5 +150,4 @@ function CreateProject({isOpen, onClose, onSuccess}) {
         </Modal>
     )
 }
-
 export default CreateProject;

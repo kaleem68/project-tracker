@@ -42,7 +42,7 @@ const defaultWunderGraphContextProperties: WunderGraphContextProperties<Role> = 
 	ssrCache: {},
 	client: null,
 	clientConfig: {
-		applicationHash: "c6a46094",
+		applicationHash: "f197d6c5",
 		applicationPath: "app/main",
 		baseURL: "http://localhost:9991",
 		sdkVersion: "0.96.1",

@@ -15,6 +15,7 @@ export interface UpdateProjectInput {
 	id: number;
 	name: db_StringFieldUpdateOperationsInput;
 	description: db_StringFieldUpdateOperationsInput;
+	budget?: db_FloatFieldUpdateOperationsInput;
 }
 
 export interface UpdateProjectStatusInput {
@@ -92,6 +93,14 @@ export interface UpdateProjectStatusResponseData {
 
 export interface db_StringFieldUpdateOperationsInput {
 	set?: string;
+}
+
+export interface db_FloatFieldUpdateOperationsInput {
+	set?: number;
+	increment?: number;
+	decrement?: number;
+	multiply?: number;
+	divide?: number;
 }
 
 export type JSONValue = string | number | boolean | JSONObject | Array<JSONValue>;
