@@ -12,8 +12,8 @@ import {
 } from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
 import {useMutation} from "./generated/nextjs";
-import {EditProjectProps, UpdateProject} from "../interfaces";
-function EditProject({isOpen, onClose, onSuccess, defaultValues}: EditProjectProps) {
+import {EditProjectProps, EditProjectPropsHeadingStatus, UpdateProject} from "../interfaces";
+function EditProject({isOpen, onClose, onSuccess, defaultValues, status}: EditProjectProps) {
     const toast = useToast()
     const {
         handleSubmit,
@@ -66,7 +66,12 @@ function EditProject({isOpen, onClose, onSuccess, defaultValues}: EditProjectPro
             <ModalContent>
                 <ModalHeader>
                     Edit Project
-                    <Badge ml={"10px"} colorScheme='purple'>New</Badge>
+                    {status === EditProjectPropsHeadingStatus.NEW &&
+                        <Badge ml={"10px"} colorScheme='purple'>New</Badge>
+                    }
+                    {status === EditProjectPropsHeadingStatus.PROGRESS &&
+                        <Badge ml={"10px"} colorScheme='green'>In Progress</Badge>
+                    }
                 </ModalHeader>
                 <ModalCloseButton/>
                 <ModalBody pb={6}>

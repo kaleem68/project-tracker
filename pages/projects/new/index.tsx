@@ -20,7 +20,7 @@ import {useMutation, useQuery, withWunderGraph} from "../../../components/genera
 import CreateProject from "../../../components/CreateProject";
 import EditProject from "../../../components/EditProject";
 import {formatToCurrency} from "../../../apputil";
-import {UpdateProject} from "../../../interfaces";
+import {EditProjectPropsHeadingStatus, UpdateProject} from "../../../interfaces";
 
 const NewProjects: NextPage = () => {
     const toast = useToast()
@@ -63,18 +63,30 @@ const NewProjects: NextPage = () => {
     }
 
     async function changeStatusToProgress(id: number) {
-        await updateProjectStatus({
+        let resp = await updateProjectStatus({
             input: {
                 id: id,
                 status: "PROGRESS"
             }
         })
-        toast({
-            title: "Project status changed to progress",
-            status: "success",
-            duration: 4000,
-            isClosable: true
-        })
+        if(resp.status === "ok" && resp.data.db_updateOneProject){
+                toast({
+                    title: 'Success',
+                    description: "Project status changed to progress",
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                })
+        }
+        else {
+            toast({
+                title: "Error",
+                description: "Oops, Something went wrong",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
+        }
     }
 
     return (
@@ -185,6 +197,7 @@ const NewProjects: NextPage = () => {
             )}
             {editProject && (
                 <EditProject
+                    status={EditProjectPropsHeadingStatus.NEW}
                     isOpen={editProject}
                     onClose={cancelEditProject}
                     onSuccess={projectSaved}
