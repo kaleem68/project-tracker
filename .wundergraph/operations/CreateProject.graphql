@@ -1,8 +1,10 @@
-mutation($name: String!, $description: String!) {
+mutation($name: String!, $description: String!, $budget: Float!, $createdAt: DateTime!) {
     db_createOneProject(
         data: {
             name: $name,
-            description: $description
+            description: $description,
+            budget: $budget,
+            createdAt: $createdAt
         }
     )
     {

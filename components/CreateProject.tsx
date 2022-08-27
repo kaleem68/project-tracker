@@ -14,35 +14,47 @@ import {useForm} from "react-hook-form";
 import {useMutation} from "./generated/nextjs";
 import {CreateProjectInput} from "./generated/models";
 import {DEFAULT_PROJECT} from "../const";
+import {CreateProjectProps} from "../interfaces";
 
-function CreateProject({isOpen, onClose, onSuccess}) {
+function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
     const toast = useToast()
     const {
         handleSubmit,
         register,
         reset,
-        formState: {errors, isSubmitting},
-    } = useForm({
+        formState: {errors, isSubmitting}
+    } = useForm<CreateProjectInput>({
         defaultValues: DEFAULT_PROJECT
     })
     const {mutate: createProject} = useMutation.CreateProject();
-
     async function onSubmit(values: CreateProjectInput) {
         const {name, description} = values;
-        await createProject({
-            input: {name, description}
+        const createdAt = new Date(values.createdAt).toISOString();
+        let budget = +values.budget;
+        let resp = await createProject({
+            input: {name, description, budget, createdAt}
         })
-        toast({
-            title: 'Success',
-            description: "Project created",
-            status: 'success',
-            duration: 5000,
-            isClosable: true,
-        })
-        reset();
-        onSuccess();
+        if (resp.status == "error") {
+            toast({
+                title: "Error",
+                description: "Oops, Something went wrong",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
+        }
+        else{
+            toast({
+                title: 'Success',
+                description: "Project created",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+            })
+            onSuccess();
+            reset();
+        }
     }
-
     function closeForm(): void {
         reset();
         onClose();
@@ -58,46 +70,62 @@ function CreateProject({isOpen, onClose, onSuccess}) {
                 <ModalCloseButton/>
                 <ModalBody pb={6}>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl isInvalid={errors?.name ? true : false}>
+                        <FormControl isInvalid={!!errors?.name}>
                             <FormLabel htmlFor='name'>* Name</FormLabel>
                             <Input
                                 id='name'
                                 placeholder='name'
+                                name={"name"}
                                 {...register('name', {
                                     required: 'This is required',
                                     maxLength: {value: 255, message: 'Maximum length should be 255'}
                                 })}
                             />
-                            <FormErrorMessage>{errors.name?.type === 'required' && 'This is required'}</FormErrorMessage>
-                            <FormErrorMessage>{errors.name?.type === 'maxLength' && 'Maximum length should be 255'}</FormErrorMessage>
+                            <FormErrorMessage>{ (errors.name?.type === 'required' || errors.name?.type === "maxLength") && errors.name.message }</FormErrorMessage>
                         </FormControl>
                         <br/>
-                        <FormControl isInvalid={errors?.description ? true : false}>
+                        <FormControl isInvalid={!!errors?.description}>
                             <FormLabel htmlFor='description'>* Description</FormLabel>
                             <Textarea
                                 rows={5}
                                 id='description'
+                                name={"description"}
                                 placeholder='description'
                                 {...register('description', {
                                     required: 'This is required',
                                     maxLength: {value: 1000, message: 'Maximum length should be 1000'}
                                 })}
                             />
-                            <FormErrorMessage>{errors.description?.type === 'required' && 'This is required'}</FormErrorMessage>
-                            <FormErrorMessage>{errors.description?.type === 'maxLength' && 'Maximum length should be 1000'}</FormErrorMessage>
+                            <FormErrorMessage>{ (errors.description?.type === 'required' || errors.description?.type === "maxLength") && errors.description.message }</FormErrorMessage>
                         </FormControl>
                         <br/>
-                        {/*<FormControl isInvalid={errors?.createdAt ? true : false}>*/}
-                        {/*    <FormLabel htmlFor='createdAt'>* Creation Date</FormLabel>*/}
-                        {/*    <Input*/}
-                        {/*        type={"date"}*/}
-                        {/*        id='createdAt'*/}
-                        {/*        {...register('createdAt', {*/}
-                        {/*            required: 'This is required'*/}
-                        {/*        })}*/}
-                        {/*    />*/}
-                        {/*    <FormErrorMessage>{errors.createdAt?.type === 'required' && 'This is required'}</FormErrorMessage>*/}
-                        {/*</FormControl>*/}
+
+                        <FormControl isInvalid={!!errors?.budget}>
+                            <FormLabel htmlFor='budget'>* Budget</FormLabel>
+                            <Input
+                                type={"number"}
+                                id='budget'
+                                name={"budget"}
+                                placeholder='budget'
+                                {...register('budget',{
+                                    required: 'This is required',
+                                    min: {value: 0, message: 'Minimum value should be 0'}
+                                })}
+                            />
+                            <FormErrorMessage>{ (errors.budget?.type === 'required' || errors.budget?.type === "min") && errors.budget.message }</FormErrorMessage>
+                        </FormControl>
+                        <br/>
+                        <FormControl isInvalid={!!errors?.createdAt}>
+                            <FormLabel htmlFor='createdAt'>* Date</FormLabel>
+                            <Input
+                                type={"date"}
+                                id='createdAt'
+                                {...register('createdAt',{
+                                    required: 'This is required'
+                                })}
+                            />
+                            <FormErrorMessage>{ (errors.createdAt?.type === 'required') && errors.createdAt.message }</FormErrorMessage>
+                        </FormControl>
                         <br/>
                         <Stack alignItems={'flex-end'}>
                             <Button
@@ -122,5 +150,4 @@ function CreateProject({isOpen, onClose, onSuccess}) {
         </Modal>
     )
 }
-
 export default CreateProject;

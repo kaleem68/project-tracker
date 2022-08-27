@@ -19,15 +19,17 @@ import {NextPage} from "next";
 import {useMutation, useQuery, withWunderGraph} from "../../../components/generated/nextjs";
 import CreateProject from "../../../components/CreateProject";
 import EditProject from "../../../components/EditProject";
+import {formatToCurrency} from "../../../apputil";
+import {UpdateProject} from "../../../interfaces";
 
 const NewProjects: NextPage = () => {
     const toast = useToast()
     const projects = useQuery.GetProjects();
     const {mutate: updateProjectStatus} = useMutation.UpdateProjectStatus();
 
-    const [createProject, setCreateProject] = useState<Boolean>(false);
-    const [editProject, setEditProject] = useState<Boolean>(false);
-    const [projectToBeEdited, setProjectToBeEdited] = useState(null);
+    const [createProject, setCreateProject] = useState<boolean>(false);
+    const [editProject, setEditProject] = useState<boolean>(false);
+    const [projectToBeEdited, setProjectToBeEdited] = useState<UpdateProject>(null);
 
     function cancelCreateProject() {
         setCreateProject(false);
@@ -43,7 +45,13 @@ const NewProjects: NextPage = () => {
     }
 
     function enableEditProject(data) {
-        setProjectToBeEdited(data);
+        let editProject: UpdateProject = {
+            id: data.id,
+            name: data.name,
+            description: data.description,
+            budget: data.budget
+        }
+        setProjectToBeEdited(editProject);
         setCreateProject(false);
         setEditProject(true);
     }
@@ -53,7 +61,6 @@ const NewProjects: NextPage = () => {
         setCreateProject(false);
         setEditProject(false);
     }
-
 
     async function changeStatusToProgress(id: number) {
         await updateProjectStatus({
@@ -75,10 +82,10 @@ const NewProjects: NextPage = () => {
             <SimpleGrid gap='22px'>
                 <Stack>
                     <Stack
-                           bg='white'
-                           boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
-                           borderColor={'#9FA2B4'}
-                        >
+                        bg='white'
+                        boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
+                        borderColor={'#9FA2B4'}
+                    >
                         <HStack borderBottom={'1px solid #DFE0EB'} p='14px'>
                             <Text fontSize={'16px'} fontWeight='700'>New Projects</Text>
                             <AddIcon onClick={enableCreateProject} cursor={"pointer"}/>
@@ -94,13 +101,14 @@ const NewProjects: NextPage = () => {
                                             <Td>Id</Td>
                                             <Td>Name</Td>
                                             <Td>Description</Td>
+                                            <Td>Budget</Td>
                                             <Td>Date</Td>
                                             <Td>Status</Td>
                                             <Td>Actions</Td>
                                         </Tr>
                                     </Thead>
                                     <Tbody>
-                                        {projects.result.data["db_findManyProject"].map((data, index) =>
+                                        {projects.result.data["db_findManyProject"].map((data) =>
                                             <Tr
                                                 key={data.id}
                                                 fontWeight={'700'} fontSize='14px'
@@ -130,8 +138,15 @@ const NewProjects: NextPage = () => {
                                                 <Td>
                                                     <Center
                                                         p={2}
+                                                        minH='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
+                                                        ${formatToCurrency(data.budget)}
+                                                    </Center>
+                                                </Td>
+                                                <Td>
+                                                    <Center
+                                                        p={2}
                                                         h='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
-                                                        {data?.createdAt}
+                                                        {new Date(data.createdAt).toISOString().split('T')[0]}
                                                     </Center>
                                                 </Td>
                                                 <Td ml={"10px"}>
@@ -173,7 +188,7 @@ const NewProjects: NextPage = () => {
                     isOpen={editProject}
                     onClose={cancelEditProject}
                     onSuccess={projectSaved}
-                    defaultValue={projectToBeEdited}
+                    defaultValues={projectToBeEdited}
                 />
             )}
         </>
