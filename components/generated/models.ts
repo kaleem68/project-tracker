@@ -3,6 +3,8 @@
 export interface CreateProjectInput {
 	name: string;
 	description: string;
+	budget: number;
+	createdAt: string;
 }
 
 export interface DeleteProjectInput {
@@ -68,6 +70,7 @@ export interface GetProjectsResponseData {
 		name: string;
 		description: string;
 		createdAt: string;
+		budget: number;
 	}[];
 }
 

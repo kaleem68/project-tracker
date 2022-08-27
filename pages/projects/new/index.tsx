@@ -19,6 +19,7 @@ import {NextPage} from "next";
 import {useMutation, useQuery, withWunderGraph} from "../../../components/generated/nextjs";
 import CreateProject from "../../../components/CreateProject";
 import EditProject from "../../../components/EditProject";
+import {formatToCurrency} from "../../../apputil";
 
 const NewProjects: NextPage = () => {
     const toast = useToast()
@@ -94,13 +95,14 @@ const NewProjects: NextPage = () => {
                                             <Td>Id</Td>
                                             <Td>Name</Td>
                                             <Td>Description</Td>
+                                            <Td>Budget</Td>
                                             <Td>Date</Td>
                                             <Td>Status</Td>
                                             <Td>Actions</Td>
                                         </Tr>
                                     </Thead>
                                     <Tbody>
-                                        {projects.result.data["db_findManyProject"].map((data, index) =>
+                                        {projects.result.data["db_findManyProject"].map((data) =>
                                             <Tr
                                                 key={data.id}
                                                 fontWeight={'700'} fontSize='14px'
@@ -130,8 +132,15 @@ const NewProjects: NextPage = () => {
                                                 <Td>
                                                     <Center
                                                         p={2}
+                                                        minH='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
+                                                        ${formatToCurrency(data.budget)}
+                                                    </Center>
+                                                </Td>
+                                                <Td>
+                                                    <Center
+                                                        p={2}
                                                         h='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
-                                                        {data?.createdAt}
+                                                        {new Date(data.createdAt).toISOString().split('T')[0]}
                                                     </Center>
                                                 </Td>
                                                 <Td ml={"10px"}>
