@@ -107,22 +107,30 @@ const NewProjects: NextPage = () => {
                                                 borderBottom={'1px solid #DFE0EB'}
                                             >
                                                 <Td>
-                                                    <Center h='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
+                                                    <Center
+                                                        p={2}
+                                                        h='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
                                                         {data.id}
                                                     </Center>
                                                 </Td>
                                                 <Td>
-                                                    <Center h='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
+                                                    <Center
+                                                        p={2}
+                                                        minH='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
                                                         {data.name}
                                                     </Center>
                                                 </Td>
                                                 <Td>
-                                                    <Center h='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
+                                                    <Center
+                                                        p={2}
+                                                        minH='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
                                                         {data.description}
                                                     </Center>
                                                 </Td>
                                                 <Td>
-                                                    <Center h='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
+                                                    <Center
+                                                        p={2}
+                                                        h='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
                                                         {data?.createdAt}
                                                     </Center>
                                                 </Td>
