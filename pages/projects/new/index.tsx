@@ -16,16 +16,22 @@ import {
 import React, {useState} from "react";
 import {AddIcon, EditIcon} from "@chakra-ui/icons";
 import {NextPage} from "next";
-import {useMutation, useQuery, withWunderGraph} from "../../../components/generated/nextjs";
+import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 import CreateProject from "../../../components/CreateProject";
 import EditProject from "../../../components/EditProject";
 import {formatToCurrency} from "../../../apputil";
-import {UpdateProject} from "../../../interfaces";
+import {EditProjectPropsHeadingStatus, UpdateProject} from "../../../interfaces";
 
 const NewProjects: NextPage = () => {
-    const toast = useToast()
-    const projects = useQuery.GetProjects();
+    const toast = useToast();
+    const projects = useLiveQuery.GetProjectsByStatus({
+        input: {
+            status: {equals: "NEW"}
+        }
+    });
+
     const {mutate: updateProjectStatus} = useMutation.UpdateProjectStatus();
+    const {mutate: archiveProject} = useMutation.UpdateArchiveStatus();
 
     const [createProject, setCreateProject] = useState<boolean>(false);
     const [editProject, setEditProject] = useState<boolean>(false);
@@ -57,24 +63,61 @@ const NewProjects: NextPage = () => {
     }
 
     function projectSaved() {
-        projects.refetch();
         setCreateProject(false);
         setEditProject(false);
     }
 
     async function changeStatusToProgress(id: number) {
-        await updateProjectStatus({
+        let resp = await updateProjectStatus({
             input: {
                 id: id,
                 status: "PROGRESS"
             }
         })
-        toast({
-            title: "Project status changed to progress",
-            status: "success",
-            duration: 4000,
-            isClosable: true
+        if(resp.status === "ok" && resp.data.db_updateOneProject){
+            toast({
+                title: 'Success',
+                description: "Project status changed to progress",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+            })
+        }
+        else {
+            toast({
+                title: "Error",
+                description: "Oops, Something went wrong",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
+        }
+    }
+    async function archiveProjectStatus(id: number) {
+        let resp = await archiveProject({
+            input: {
+                id: id,
+                archived: {set: true}
+            }
         })
+        if(resp.status === "ok" && resp.data.db_updateOneProject){
+            toast({
+                title: 'Success',
+                description: "Project archived",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+            })
+        }
+        else {
+            toast({
+                title: "Error",
+                description: "Oops, Something went wrong",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
+        }
     }
 
     return (
@@ -155,9 +198,9 @@ const NewProjects: NextPage = () => {
                                                 <Td>
                                                     <Stack
                                                         spacing={"10px"} isInline>
-                                                        <Button onClick={() => {
-                                                            changeStatusToProgress(data.id)
-                                                        }} bg={"green.300"} size={"sm"}>Start</Button>
+                                                        <Button onClick={() => {changeStatusToProgress(data.id)}} bg={"green.300"} size={"sm"}>Start</Button>
+                                                        <Button onClick={() => {archiveProjectStatus(data.id)}} bg={"blue.300"} size={"sm"}>Archive</Button>
+
                                                         <EditIcon
                                                             onClick={() => {
                                                                 enableEditProject(data)
@@ -185,6 +228,7 @@ const NewProjects: NextPage = () => {
             )}
             {editProject && (
                 <EditProject
+                    status={EditProjectPropsHeadingStatus.NEW}
                     isOpen={editProject}
                     onClose={cancelEditProject}
                     onSuccess={projectSaved}

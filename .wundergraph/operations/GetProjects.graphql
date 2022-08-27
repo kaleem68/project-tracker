@@ -4,6 +4,7 @@
         name,
         description,
         createdAt,
-        budget
+        budget,
+        archived
     }
 }

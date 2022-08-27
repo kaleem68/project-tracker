@@ -1,0 +1,12 @@
+query GetProjectsByStatus(
+    $status: db_EnumStatusFilter!
+){
+    db_findManyProject(where: {status: $status, archived: {equals: false}}) {
+        id,
+        name,
+        description,
+        createdAt,
+        budget,
+        archived
+    }
+}

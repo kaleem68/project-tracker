@@ -11,6 +11,19 @@ export interface DeleteProjectInput {
 	id: number;
 }
 
+export interface GetArchivedProjectsInput {
+	archived?: db_BoolFilter;
+}
+
+export interface GetProjectsByStatusInput {
+	status: db_EnumStatusFilter;
+}
+
+export interface UpdateArchiveStatusInput {
+	id: number;
+	archived: db_BoolFieldUpdateOperationsInput;
+}
+
 export interface UpdateProjectInput {
 	id: number;
 	name: db_StringFieldUpdateOperationsInput;
@@ -33,13 +46,28 @@ export interface DeleteProjectResponse {
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
+export interface GetArchivedProjectsResponse {
+	data?: GetArchivedProjectsResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
 export interface GetProjectsResponse {
 	data?: GetProjectsResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
+export interface GetProjectsByStatusResponse {
+	data?: GetProjectsByStatusResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
 export interface HelloResponse {
 	data?: HelloResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
+export interface UpdateArchiveStatusResponse {
+	data?: UpdateArchiveStatusResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
@@ -65,6 +93,17 @@ export interface DeleteProjectResponseData {
 	};
 }
 
+export interface GetArchivedProjectsResponseData {
+	db_findManyProject: {
+		id: number;
+		name: string;
+		description: string;
+		createdAt: string;
+		budget: number;
+		archived: boolean;
+	}[];
+}
+
 export interface GetProjectsResponseData {
 	db_findManyProject: {
 		id: number;
@@ -72,11 +111,29 @@ export interface GetProjectsResponseData {
 		description: string;
 		createdAt: string;
 		budget: number;
+		archived: boolean;
+	}[];
+}
+
+export interface GetProjectsByStatusResponseData {
+	db_findManyProject: {
+		id: number;
+		name: string;
+		description: string;
+		createdAt: string;
+		budget: number;
+		archived: boolean;
 	}[];
 }
 
 export interface HelloResponseData {
 	gql_hello?: string;
+}
+
+export interface UpdateArchiveStatusResponseData {
+	db_updateOneProject?: {
+		id: number;
+	};
 }
 
 export interface UpdateProjectResponseData {
@@ -89,6 +146,27 @@ export interface UpdateProjectStatusResponseData {
 	db_updateOneProject?: {
 		id: number;
 	};
+}
+
+export interface db_BoolFilter {
+	equals?: boolean;
+	not?: db_NestedBoolFilter;
+}
+
+export interface db_NestedBoolFilter {
+	equals?: boolean;
+	not?: db_NestedBoolFilter;
+}
+
+export interface db_EnumStatusFilter {
+	equals?: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
+	in?: ("NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED")[];
+	notIn?: ("NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED")[];
+	not?: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
+}
+
+export interface db_BoolFieldUpdateOperationsInput {
+	set?: boolean;
 }
 
 export interface db_StringFieldUpdateOperationsInput {

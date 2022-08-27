@@ -1,0 +1,13 @@
+mutation UpdateArchiveStatus(
+    $id: Int!,
+    $archived: db_BoolFieldUpdateOperationsInput!
+){
+    db_updateOneProject(
+        where: {id: $id},
+        data: {
+            archived: $archived,
+        }
+    ) {
+        id
+    }
+}

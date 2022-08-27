@@ -11,4 +11,9 @@ export interface CreateProjectProps {
 }
 export interface EditProjectProps extends CreateProjectProps{
     defaultValues: UpdateProject;
+    status: EditProjectPropsHeadingStatus
+}
+export enum EditProjectPropsHeadingStatus{
+    NEW,
+    PROGRESS
 }
