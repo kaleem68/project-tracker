@@ -1,12 +1,11 @@
-query GetArchivedProjects(
-    $archived: db_BoolFilter,
-){
-    db_findManyProject(where: {archived: $archived}) {
+query GetArchivedProject{
+    db_findManyProject(where: {archived: {equals: true}}) {
         id,
         name,
         description,
         createdAt,
         budget,
+        status
         archived
     }
 }

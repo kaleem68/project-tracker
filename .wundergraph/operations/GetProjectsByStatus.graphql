@@ -8,5 +8,6 @@ query GetProjectsByStatus(
         createdAt,
         budget,
         archived
+        status
     }
 }

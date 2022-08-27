@@ -17,7 +17,7 @@ import {
 import React, {useState} from "react";
 import {EditIcon} from "@chakra-ui/icons";
 import {NextPage} from "next";
-import {useLiveQuery, useMutation, useQuery, withWunderGraph} from "../../../components/generated/nextjs";
+import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 import EditProject from "../../../components/EditProject";
 import {formatToCurrency} from "../../../apputil";
 import {EditProjectPropsHeadingStatus, UpdateProject} from "../../../interfaces";
@@ -185,7 +185,7 @@ const InProgress: NextPage = () => {
                                                     </Center>
                                                 </Td>
                                                 <Td ml={"10px"}>
-                                                    <Badge ml={"10px"} colorScheme='green'>IN PROGRESS</Badge>
+                                                    <Badge ml={"10px"} colorScheme='teal'>{data.status}</Badge>
                                                 </Td>
                                                 <Td>
                                                     <Stack spacing={"10px"} isInline>

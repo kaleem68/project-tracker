@@ -125,11 +125,13 @@ const Completed: NextPage = () => {
                                                     </Center>
                                                 </Td>
                                                 <Td ml={"10px"}>
-                                                    <Badge ml={"10px"} colorScheme='red'>CANCELLED</Badge>
+                                                    <Badge ml={"10px"} colorScheme='red'>{data.status}</Badge>
                                                 </Td>
                                                 <Td>
                                                     <Stack spacing={"10px"} isInline>
-                                                        <Button onClick={() => {archiveProjectStatus(data.id)}} bg={"blue.300"}>Archive</Button>
+                                                        <Button
+                                                            size={"sm"}
+                                                            onClick={() => {archiveProjectStatus(data.id)}} bg={"blue.300"}>Archive</Button>
 
                                                     </Stack>
                                                 </Td>
