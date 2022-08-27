@@ -11,10 +11,6 @@ export interface DeleteProjectInput {
 	id: number;
 }
 
-export interface GetArchivedProjectsInput {
-	archived?: db_BoolFilter;
-}
-
 export interface GetProjectsByStatusInput {
 	status: db_EnumStatusFilter;
 }
@@ -100,6 +96,7 @@ export interface GetArchivedProjectsResponseData {
 		description: string;
 		createdAt: string;
 		budget: number;
+		status: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
 		archived: boolean;
 	}[];
 }
@@ -123,6 +120,7 @@ export interface GetProjectsByStatusResponseData {
 		createdAt: string;
 		budget: number;
 		archived: boolean;
+		status: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
 	}[];
 }
 
@@ -133,6 +131,7 @@ export interface HelloResponseData {
 export interface UpdateArchiveStatusResponseData {
 	db_updateOneProject?: {
 		id: number;
+		status: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
 	};
 }
 
@@ -146,16 +145,6 @@ export interface UpdateProjectStatusResponseData {
 	db_updateOneProject?: {
 		id: number;
 	};
-}
-
-export interface db_BoolFilter {
-	equals?: boolean;
-	not?: db_NestedBoolFilter;
-}
-
-export interface db_NestedBoolFilter {
-	equals?: boolean;
-	not?: db_NestedBoolFilter;
 }
 
 export interface db_EnumStatusFilter {

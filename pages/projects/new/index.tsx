@@ -193,7 +193,7 @@ const NewProjects: NextPage = () => {
                                                     </Center>
                                                 </Td>
                                                 <Td ml={"10px"}>
-                                                    <Badge ml={"10px"} colorScheme='purple'>New</Badge>
+                                                    <Badge ml={"10px"} colorScheme='purple'>{data.status}</Badge>
                                                 </Td>
                                                 <Td>
                                                     <Stack

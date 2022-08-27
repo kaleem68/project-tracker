@@ -1,91 +1,200 @@
-import {Center, HStack, SimpleGrid, Stack, Table, Tbody, Td, Thead, Tr, Text, useToast} from "@chakra-ui/react";
+import {
+    Badge,
+    Button,
+    Center,
+    HStack,
+    SimpleGrid,
+    Stack,
+    Table,
+    Tbody,
+    Td,
+    Text,
+    Thead,
+    Tr,
+    useToast
+} from "@chakra-ui/react";
 import React from "react";
-import {DeleteIcon} from "@chakra-ui/icons";
 import {NextPage} from "next";
 import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
-const ArchivedProjects: NextPage = () => {
-    const toast = useToast();
-    const projects = useLiveQuery.GetProjects();
-    const {mutate: deleteItem, result: deletedItem} = useMutation.DeleteProject();
-    async function deleteProject(id: number) {
-        const confirmDelete = window.confirm("Are you sure you want to delete this project?");
-        if (confirmDelete) {
-            await deleteItem({
-                input: {
-                    id: id
-                }
-            })
+import {formatToCurrency} from "../../../apputil";
+import {DeleteIcon} from "@chakra-ui/icons";
+
+const Archived: NextPage = () => {
+    const toast = useToast()
+    const projects = useLiveQuery.GetArchivedProjects();
+    const {mutate: archiveProject} = useMutation.UpdateArchiveStatus();
+    const {mutate: deleteProject} = useMutation.DeleteProject();
+
+    async function unarchiveProjectStatus(id: number) {
+        let resp = await archiveProject({
+            input: {
+                id: id,
+                archived: {set: false}
+            }
+        })
+        if (resp.status === "ok" && resp.data.db_updateOneProject) {
             toast({
                 title: 'Success',
-                description: 'Project deleted',
+                description: `Project Unarchived`,
                 status: 'success',
+                duration: 5000,
+                isClosable: true,
+            })
+        } else {
+            toast({
+                title: "Error",
+                description: "Oops, Something went wrong",
+                status: "error",
                 duration: 5000,
                 isClosable: true,
             })
         }
     }
+
+    function getColorScheme(status: string) {
+        switch (status) {
+            case "NEW":
+                return "purple";
+            case "COMPLETED":
+                return "green";
+            case "CANCELLED":
+                return "red";
+            default:
+                return "teal";
+        }
+    }
+
+    async function deleteProjectAction(id: number) {
+        const confirmDelete = window.confirm("Are you sure you want to delete this project?");
+        if (confirmDelete) {
+            let resp = await deleteProject({
+                input: {
+                    id: id
+                }
+            })
+            if (resp.status === "ok" && resp.data.db_deleteOneProject) {
+                toast({
+                    title: 'Success',
+                    description: "Project Deleted",
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                })
+            } else {
+                toast({
+                    title: "Error",
+                    description: "Oops, Something went wrong",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                })
+            }
+        }
+    }
+
     return (
-        <SimpleGrid gap='22px'>
-            <Stack>
-                <Stack bg='white' boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
-                       borderRadius='8px'
-                       border='1px solid #9FA2B4' borderColor={'#9FA2B4'}>
-                    <HStack borderBottom={'1px solid #DFE0EB'} p='14px'>
-                        <Text fontSize={'16px'} fontWeight='700'>Archived Projects</Text>
-                    </HStack>
-                    {projects.result.status === "ok" && (
-                        <Stack p='16px'>
-                            <Table variant={'unstyled'}>
-                                <Thead>
-                                    <Tr borderBottom={'1px solid #DFE0EB'} fontWeight={'700'}
-                                        fontSize='14px'>
-                                        <Td>Id</Td>
-                                        <Td>Name</Td>
-                                        <Td>Actions</Td>
-                                        <Td></Td>
-                                        <Td></Td>
-                                    </Tr>
-                                </Thead>
-                                <Tbody>
-                                    {projects.result.data["db_findManyProject"].map((data, index) =>
-                                        <Tr
-                                            key={index}
-                                            fontWeight={'700'} fontSize='14px'
-                                            borderBottom={'1px solid #DFE0EB'}>
-                                            <Td p='8px' mr='20px' w='181px'>
-                                                <Center h='40px'
-                                                        border={'1px solid #9FA2B4'}
-                                                        borderRadius='8px'>
-                                                    {data.id}
-                                                </Center>
-                                            </Td>
-                                            <Td p='8px' mr='20px' w='181px'>
-                                                <Center h='40px'
-                                                        border={'1px solid #9FA2B4'}
-                                                        borderRadius='8px'>
-                                                    {data.name}
-                                                </Center>
-                                            </Td>
-                                            <Td>
-                                                <Stack
-                                                    spacing={"10px"}
-                                                    isInline>
-                                                    <DeleteIcon
-                                                        onClick={() => deleteProject(data.id)}
-                                                        fontSize={'16px'}
-                                                        cursor={"pointer"}/>
-                                                </Stack>
-                                            </Td>
-                                            <Td></Td>
+        <>
+            <SimpleGrid gap='22px'>
+                <Stack>
+                    <Stack
+                        bg='white'
+                        boxShadow={'0px 4px 4px rgba(0, 0, 0, 0.25)'}
+                        borderColor={'#9FA2B4'}
+                    >
+                        <HStack borderBottom={'1px solid #DFE0EB'} p='14px'>
+                            <Text fontSize={'16px'} fontWeight='700'>Archived Projects</Text>
+                        </HStack>
+                        {projects.result.status === "ok" && (
+                            <Stack
+                                maxH={"85vh"}
+                                overflow={"scroll"}
+                                p='16px'>
+                                <Table variant={'unstyled'}>
+                                    <Thead>
+                                        <Tr borderBottom={'1px solid #DFE0EB'} fontWeight={'700'} fontSize='14px'>
+                                            <Td>Id</Td>
+                                            <Td>Name</Td>
+                                            <Td>Description</Td>
+                                            <Td>Budget</Td>
+                                            <Td>Date</Td>
+                                            <Td>Status</Td>
+                                            <Td>Actions</Td>
                                         </Tr>
-                                    )}
-                                </Tbody>
-                            </Table>
-                        </Stack>
-                    )}
+                                    </Thead>
+                                    <Tbody>
+                                        {projects.result.data["db_findManyProject"].map((data) =>
+                                            <Tr
+                                                key={data.id}
+                                                fontWeight={'700'} fontSize='14px'
+                                                borderBottom={'1px solid #DFE0EB'}
+                                            >
+                                                <Td>
+                                                    <Center
+                                                        p={2}
+                                                        h='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
+                                                        {data.id}
+                                                    </Center>
+                                                </Td>
+                                                <Td>
+                                                    <Center
+                                                        p={2}
+                                                        minH='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
+                                                        {data.name}
+                                                    </Center>
+                                                </Td>
+                                                <Td>
+                                                    <Center
+                                                        p={2}
+                                                        minH='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
+                                                        {data.description}
+                                                    </Center>
+                                                </Td>
+                                                <Td>
+                                                    <Center
+                                                        p={2}
+                                                        minH='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
+                                                        ${formatToCurrency(data.budget)}
+                                                    </Center>
+                                                </Td>
+                                                <Td>
+                                                    <Center
+                                                        p={2}
+                                                        h='40px' border={'1px solid #9FA2B4'} borderRadius='8px'>
+                                                        {new Date(data.createdAt).toISOString().split('T')[0]}
+                                                    </Center>
+                                                </Td>
+                                                <Td ml={"10px"}>
+                                                    <Badge ml={"10px"}
+                                                           colorScheme={getColorScheme(data.status)}>{data.status}</Badge>
+                                                </Td>
+                                                <Td>
+                                                    <Stack
+                                                        alignItems={"center"}
+                                                        spacing={"10px"} isInline>
+                                                        <Button
+                                                            bg={"yellow.400"}
+                                                            size={"sm"}
+                                                            onClick={() => {
+                                                                unarchiveProjectStatus(data.id)
+                                                            }}>Unarchive</Button>
+                                                        <DeleteIcon
+                                                            onClick={() => deleteProjectAction(data.id)}
+                                                            fontSize={'18px'}
+                                                            cursor={"pointer"}/>
+
+                                                    </Stack>
+                                                </Td>
+                                                <Td></Td>
+                                            </Tr>
+                                        )}
+                                    </Tbody>
+                                </Table>
+                            </Stack>
+                        )}
+                    </Stack>
                 </Stack>
-            </Stack>
-        </SimpleGrid>
+            </SimpleGrid>
+        </>
     )
 }
-export default withWunderGraph(ArchivedProjects);
+export default withWunderGraph(Archived);
