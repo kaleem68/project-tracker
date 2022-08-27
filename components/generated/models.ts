@@ -15,6 +15,11 @@ export interface GetProjectsByStatusInput {
 	status: db_EnumStatusFilter;
 }
 
+export interface UpdateArchiveStatusInput {
+	id: number;
+	archived: db_BoolFieldUpdateOperationsInput;
+}
+
 export interface UpdateProjectInput {
 	id: number;
 	name: db_StringFieldUpdateOperationsInput;
@@ -49,6 +54,11 @@ export interface GetProjectsByStatusResponse {
 
 export interface HelloResponse {
 	data?: HelloResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
+export interface UpdateArchiveStatusResponse {
+	data?: UpdateArchiveStatusResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
@@ -95,6 +105,12 @@ export interface HelloResponseData {
 	gql_hello?: string;
 }
 
+export interface UpdateArchiveStatusResponseData {
+	db_updateOneProject?: {
+		id: number;
+	};
+}
+
 export interface UpdateProjectResponseData {
 	db_updateOneProject?: {
 		id: number;
@@ -112,6 +128,10 @@ export interface db_EnumStatusFilter {
 	in?: ("NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED")[];
 	notIn?: ("NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED")[];
 	not?: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
+}
+
+export interface db_BoolFieldUpdateOperationsInput {
+	set?: boolean;
 }
 
 export interface db_StringFieldUpdateOperationsInput {
