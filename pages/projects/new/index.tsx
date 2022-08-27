@@ -84,7 +84,10 @@ const NewProjects: NextPage = () => {
                             <AddIcon onClick={enableCreateProject} cursor={"pointer"}/>
                         </HStack>
                         {projects.result.status === "ok" && (
-                            <Stack p='16px'>
+                            <Stack
+                                maxH={"85vh"}
+                                overflow={"scroll"}
+                                p='16px'>
                                 <Table variant={'unstyled'}>
                                     <Thead>
                                         <Tr borderBottom={'1px solid #DFE0EB'} fontWeight={'700'} fontSize='14px'>
