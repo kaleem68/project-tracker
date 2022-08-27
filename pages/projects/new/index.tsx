@@ -70,13 +70,39 @@ const NewProjects: NextPage = () => {
             }
         })
         if(resp.status === "ok" && resp.data.db_updateOneProject){
-                toast({
-                    title: 'Success',
-                    description: "Project status changed to progress",
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: true,
-                })
+            toast({
+                title: 'Success',
+                description: "Project status changed to progress",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+            })
+        }
+        else {
+            toast({
+                title: "Error",
+                description: "Oops, Something went wrong",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
+        }
+    }
+    async function archiveProject(id: number) {
+        let resp = await updateProjectStatus({
+            input: {
+                id: id,
+                status: "PROGRESS"
+            }
+        })
+        if(resp.status === "ok" && resp.data.db_updateOneProject){
+            toast({
+                title: 'Success',
+                description: "Project status changed to progress",
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+            })
         }
         else {
             toast({
@@ -167,9 +193,9 @@ const NewProjects: NextPage = () => {
                                                 <Td>
                                                     <Stack
                                                         spacing={"10px"} isInline>
-                                                        <Button onClick={() => {
-                                                            changeStatusToProgress(data.id)
-                                                        }} bg={"green.300"} size={"sm"}>Start</Button>
+                                                        <Button onClick={() => {changeStatusToProgress(data.id)}} bg={"green.300"} size={"sm"}>Start</Button>
+                                                        <Button onClick={() => {changeStatusToProgress(data.id)}} bg={"blue.300"} size={"sm"}>Archive</Button>
+
                                                         <EditIcon
                                                             onClick={() => {
                                                                 enableEditProject(data)

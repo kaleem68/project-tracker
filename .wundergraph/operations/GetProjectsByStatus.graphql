@@ -1,0 +1,7 @@
+query GetProjectsByStatus(
+    $status: db_EnumStatusFilter!
+){
+    db_findManyProject(where: {status: $status}) {
+        id
+    }
+}

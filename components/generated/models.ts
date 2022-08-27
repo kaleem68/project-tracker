@@ -11,6 +11,10 @@ export interface DeleteProjectInput {
 	id: number;
 }
 
+export interface GetProjectsByStatusInput {
+	status: db_EnumStatusFilter;
+}
+
 export interface UpdateProjectInput {
 	id: number;
 	name: db_StringFieldUpdateOperationsInput;
@@ -35,6 +39,11 @@ export interface DeleteProjectResponse {
 
 export interface GetProjectsResponse {
 	data?: GetProjectsResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
+export interface GetProjectsByStatusResponse {
+	data?: GetProjectsByStatusResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
@@ -72,6 +81,13 @@ export interface GetProjectsResponseData {
 		description: string;
 		createdAt: string;
 		budget: number;
+		archived: boolean;
+	}[];
+}
+
+export interface GetProjectsByStatusResponseData {
+	db_findManyProject: {
+		id: number;
 	}[];
 }
 
@@ -89,6 +105,13 @@ export interface UpdateProjectStatusResponseData {
 	db_updateOneProject?: {
 		id: number;
 	};
+}
+
+export interface db_EnumStatusFilter {
+	equals?: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
+	in?: ("NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED")[];
+	notIn?: ("NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED")[];
+	not?: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
 }
 
 export interface db_StringFieldUpdateOperationsInput {
