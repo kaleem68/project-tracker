@@ -27,6 +27,7 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
         defaultValues: DEFAULT_PROJECT
     })
     const {mutate: createProject} = useMutation.CreateProject();
+
     async function onSubmit(values: CreateProjectInput) {
         const {name, description} = values;
         const createdAt = new Date(values.createdAt).toISOString();
@@ -34,16 +35,7 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
         let resp = await createProject({
             input: {name, description, budget, createdAt}
         })
-        if (resp.status == "error") {
-            toast({
-                title: "Error",
-                description: "Oops, Something went wrong",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-            })
-        }
-        else{
+        if (resp.status === "ok" && resp.data.db_createOneProject) {
             toast({
                 title: 'Success',
                 description: "Project created",
@@ -53,12 +45,22 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
             })
             onSuccess();
             reset();
+        } else {
+            toast({
+                title: "Error",
+                description: "Oops, Something went wrong",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
         }
     }
+
     function closeForm(): void {
         reset();
         onClose();
     }
+
     return (
         <Modal isOpen={isOpen} onClose={closeForm}>
             <ModalOverlay/>
@@ -76,12 +78,14 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
                                 id='name'
                                 placeholder='name'
                                 name={"name"}
-                                {...register('name', {
-                                    required: 'This is required',
-                                    maxLength: {value: 255, message: 'Maximum length should be 255'}
-                                })}
+                                {...register('name')}
                             />
-                            <FormErrorMessage>{ (errors.name?.type === 'required' || errors.name?.type === "maxLength") && errors.name.message }</FormErrorMessage>
+
+                            {/*    , {*/}
+                            {/*    required: 'This is required',*/}
+                            {/*    maxLength: {value: 255, message: 'Maximum length should be 255'}*/}
+                            {/*}*/}
+                            <FormErrorMessage>{(errors.name?.type === 'required' || errors.name?.type === "maxLength") && errors.name.message}</FormErrorMessage>
                         </FormControl>
                         <br/>
                         <FormControl isInvalid={!!errors?.description}>
@@ -96,7 +100,7 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
                                     maxLength: {value: 1000, message: 'Maximum length should be 1000'}
                                 })}
                             />
-                            <FormErrorMessage>{ (errors.description?.type === 'required' || errors.description?.type === "maxLength") && errors.description.message }</FormErrorMessage>
+                            <FormErrorMessage>{(errors.description?.type === 'required' || errors.description?.type === "maxLength") && errors.description.message}</FormErrorMessage>
                         </FormControl>
                         <br/>
 
@@ -107,12 +111,12 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
                                 id='budget'
                                 name={"budget"}
                                 placeholder='budget'
-                                {...register('budget',{
+                                {...register('budget', {
                                     required: 'This is required',
                                     min: {value: 0, message: 'Minimum value should be 0'}
                                 })}
                             />
-                            <FormErrorMessage>{ (errors.budget?.type === 'required' || errors.budget?.type === "min") && errors.budget.message }</FormErrorMessage>
+                            <FormErrorMessage>{(errors.budget?.type === 'required' || errors.budget?.type === "min") && errors.budget.message}</FormErrorMessage>
                         </FormControl>
                         <br/>
                         <FormControl isInvalid={!!errors?.createdAt}>
@@ -120,11 +124,11 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
                             <Input
                                 type={"date"}
                                 id='createdAt'
-                                {...register('createdAt',{
+                                {...register('createdAt', {
                                     required: 'This is required'
                                 })}
                             />
-                            <FormErrorMessage>{ (errors.createdAt?.type === 'required') && errors.createdAt.message }</FormErrorMessage>
+                            <FormErrorMessage>{(errors.createdAt?.type === 'required') && errors.createdAt.message}</FormErrorMessage>
                         </FormControl>
                         <br/>
                         <Stack alignItems={'flex-end'}>
@@ -150,4 +154,5 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
         </Modal>
     )
 }
+
 export default CreateProject;

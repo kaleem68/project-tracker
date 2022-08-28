@@ -115,7 +115,7 @@ function EditProject({isOpen, onClose, onSuccess, defaultValues, status}: EditPr
                                 placeholder='budget'
                                 {...register('budget',{
                                     required: 'This is required',
-                                    min: {value: 0, message: 'Minimum value should be 0'}
+                                    min: {value: -2, message: 'Minimum value should be -2'}
                                 })}
                             />
                             <FormErrorMessage>{ (errors.budget?.type === 'required' || errors.budget?.type === "min") && errors.budget.message }</FormErrorMessage>
