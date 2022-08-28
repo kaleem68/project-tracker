@@ -55,7 +55,7 @@ const InProgress: NextPage = () => {
     }
 
     async function completeOrCancel(complete: boolean, id: number) {
-        let successMessage = complete ? "Project Completed" : "Project Cancelled";
+        let successMessage = complete ? "Project completed" : "Project cancelled";
         //confirm before delete
         if (!complete) {
             let confirm = window.confirm("Are you sure you want to cancel this project?")
@@ -98,7 +98,7 @@ const InProgress: NextPage = () => {
         if (resp.status === "ok" && resp.data.db_updateOneProject) {
             toast({
                 title: 'Success',
-                description: "Project Archived",
+                description: "Project archived",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,

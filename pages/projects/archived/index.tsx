@@ -35,7 +35,7 @@ const Archived: NextPage = () => {
         if (resp.status === "ok" && resp.data.db_updateOneProject) {
             toast({
                 title: 'Success',
-                description: `Project Unarchived`,
+                description: "Project unarchived",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
@@ -75,7 +75,7 @@ const Archived: NextPage = () => {
             if (resp.status === "ok" && resp.data.db_deleteOneProject) {
                 toast({
                     title: 'Success',
-                    description: "Project Deleted",
+                    description: "Project deleted",
                     status: 'success',
                     duration: 5000,
                     isClosable: true,

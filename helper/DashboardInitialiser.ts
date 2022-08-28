@@ -55,3 +55,42 @@ export function getDefaultForTopFiveMostExpensiveProjects(){
     };
     return result;
 }
+
+export function getDefaultForProjectsCountByStatus(){
+    const result = {
+        "labels": [
+        "Projects count by Status",
+    ],
+        "datasets": [
+        {
+            "label": "New",
+            "data": [
+                0
+            ],
+            "backgroundColor": "#673ab7"
+        },
+        {
+            "label": "In Progress",
+            "data": [
+                0
+            ],
+            "backgroundColor": "#1de9b6"
+        },
+        {
+            "label": "Completed",
+            "data": [
+                0
+            ],
+            "backgroundColor": "#43a047"
+        },
+        {
+            "label": "Cancelled",
+            "data": [
+                0
+            ],
+            "backgroundColor": "#e91e63"
+        }
+    ]
+    };
+    return result;
+}

@@ -77,7 +77,7 @@ const NewProjects: NextPage = () => {
         if(resp.status === "ok" && resp.data.db_updateOneProject){
             toast({
                 title: 'Success',
-                description: "Project status changed to progress",
+                description: "Project in progress",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,

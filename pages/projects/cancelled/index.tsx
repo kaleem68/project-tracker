@@ -37,7 +37,7 @@ const Completed: NextPage = () => {
         if (resp.status === "ok" && resp.data.db_updateOneProject) {
             toast({
                 title: 'Success',
-                description: "Project Archived",
+                description: "Project archived",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
