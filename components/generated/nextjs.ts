@@ -11,8 +11,6 @@ import type {
 	DeleteProjectResponseData,
 	GetArchivedProjectsResponse,
 	GetArchivedProjectsResponseData,
-	GetProjectsResponse,
-	GetProjectsResponseData,
 	GetProjectsByStatusResponse,
 	GetProjectsByStatusInput,
 	GetProjectsByStatusResponseData,
@@ -54,7 +52,7 @@ const defaultWunderGraphContextProperties: WunderGraphContextProperties<Role> = 
 	ssrCache: {},
 	client: null,
 	clientConfig: {
-		applicationHash: "a7e872b4",
+		applicationHash: "88d6b13e",
 		applicationPath: "app/main",
 		baseURL: "http://localhost:9991",
 		sdkVersion: "0.96.1",
@@ -91,10 +89,6 @@ export const useQuery = {
 	}),
 	GetArchivedProjects: hooks.useQueryWithoutInput<GetArchivedProjectsResponseData, Role>(WunderGraphContext, {
 		operationName: "GetArchivedProjects",
-		requiresAuthentication: false,
-	}),
-	GetProjects: hooks.useQueryWithoutInput<GetProjectsResponseData, Role>(WunderGraphContext, {
-		operationName: "GetProjects",
 		requiresAuthentication: false,
 	}),
 	GetProjectsCountGroupByStatus: hooks.useQueryWithoutInput<GetProjectsCountGroupByStatusResponseData, Role>(
@@ -162,12 +156,6 @@ export const useLiveQuery = {
 	GetArchivedProjects: (args?: SubscriptionArgs) =>
 		hooks.useSubscriptionWithoutInput<GetArchivedProjectsResponseData, Role>(WunderGraphContext, {
 			operationName: "GetArchivedProjects",
-			isLiveQuery: true,
-			requiresAuthentication: false,
-		})(args),
-	GetProjects: (args?: SubscriptionArgs) =>
-		hooks.useSubscriptionWithoutInput<GetProjectsResponseData, Role>(WunderGraphContext, {
-			operationName: "GetProjects",
 			isLiveQuery: true,
 			requiresAuthentication: false,
 		})(args),

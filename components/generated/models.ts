@@ -52,11 +52,6 @@ export interface GetArchivedProjectsResponse {
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
-export interface GetProjectsResponse {
-	data?: GetProjectsResponseData;
-	errors?: ReadonlyArray<GraphQLError>;
-}
-
 export interface GetProjectsByStatusResponse {
 	data?: GetProjectsByStatusResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
@@ -115,17 +110,6 @@ export interface GetArchivedProjectsResponseData {
 		createdAt: string;
 		budget: number;
 		status: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
-		archived: boolean;
-	}[];
-}
-
-export interface GetProjectsResponseData {
-	db_findManyProject: {
-		id: number;
-		name: string;
-		description: string;
-		createdAt: string;
-		budget: number;
 		archived: boolean;
 	}[];
 }
