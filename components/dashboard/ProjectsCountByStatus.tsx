@@ -8,14 +8,19 @@ function ProjectsCountByStatus({projects}) {
         for (let i = 0; i < projects?.length; i++) {
             let project = projects[i];
             let count = project._count.id
-            if (project.status === "NEW") {
-                result.datasets[0].data[0] = count;
-            } else if (project.status === "PROGRESS") {
-                result.datasets[1].data[0] = count;
-            } else if (project.status === "COMPLETED") {
-                result.datasets[2].data[0] = count;
-            } else if (project.status === "CANCELLED") {
-                result.datasets[3].data[0] = count;
+            switch (project.status) {
+                case "NEW":
+                    result.datasets[0].data[0] = count;
+                    break;
+                case "PROGRESS":
+                    result.datasets[1].data[0] = count;
+                    break;
+                case "COMPLETED":
+                    result.datasets[2].data[0] = count;
+                    break;
+                case "CANCELLED":
+                    result.datasets[3].data[0] = count;
+                    break;
             }
         }
         return result;

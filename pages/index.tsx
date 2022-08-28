@@ -5,7 +5,7 @@ import React from "react";
 import TopFiveMostExpensiveProjects from "../components/dashboard/TopFiveMostExpensiveProjects";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from "chart.js";
 import ProjectsByStatus from "../components/dashboard/ProjectsCountByStatus";
-import ProjectsByStatusCards from "../components/dashboard/ProjectsByStatusCards";
+import ProjectsByStatusCardsList from "../components/dashboard/ProjectsByStatusCardsList";
 
 ChartJS.register(
     CategoryScale,
@@ -31,7 +31,7 @@ const Dashboard: NextPage = () => {
     return (
         <Stack bg='#E5E5E5' h='100vh'>
             {projectsCountGroupByStatus.result.status === "ok" &&
-                <ProjectsByStatusCards
+                <ProjectsByStatusCardsList
                     archiveCount={getArchiveCount()}
                     projects={projectsCountGroupByStatus.result.data?.db_groupByProject}/>
             }

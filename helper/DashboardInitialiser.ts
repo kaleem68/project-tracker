@@ -1,8 +1,8 @@
-import {Budget} from "./AppInterfaces";
 import {MdCancelPresentation, MdDoneOutline, MdOutlineCreateNewFolder, MdOutlineUnarchive} from "react-icons/md";
 import {GrInProgress} from "react-icons/gr";
-export function getCardsByStatusDefault(): Budget[] {
-    const result: Budget[] = [
+import {StatusCard} from "./AppInterfaces";
+export function getCardsByStatusDefault(): StatusCard[] {
+    const result: StatusCard[] = [
         {
             icon: MdOutlineCreateNewFolder,
             title: "New",
