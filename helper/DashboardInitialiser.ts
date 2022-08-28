@@ -1,8 +1,8 @@
-import {Budget} from "../../helper/AppInterfaces";
+import {Budget} from "./AppInterfaces";
 import {MdCancelPresentation, MdDoneOutline, MdOutlineCreateNewFolder, MdOutlineUnarchive} from "react-icons/md";
 import {GrInProgress} from "react-icons/gr";
 export function getCardsByStatusDefault(): Budget[] {
-    let result: Budget[] = [
+    const result: Budget[] = [
         {
             icon: MdOutlineCreateNewFolder,
             title: "New",
@@ -41,4 +41,17 @@ export function getCardsByStatusDefault(): Budget[] {
         }
     ];
     return  result;
+}
+export function getDefaultForTopFiveMostExpensiveProjects(){
+    const result = {
+        labels: [],
+        datasets: [
+            {
+                label: 'Top 5 Most Expensive Projects',
+                data: [],
+                backgroundColor: '#f60e71',
+            }
+        ]
+    };
+    return result;
 }

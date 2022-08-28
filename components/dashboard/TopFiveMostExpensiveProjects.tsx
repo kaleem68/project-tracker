@@ -1,19 +1,11 @@
 import {HStack, Stack, Text} from "@chakra-ui/react";
 import React from 'react';
 import {Bar} from 'react-chartjs-2';
+import {getDefaultForTopFiveMostExpensiveProjects} from "../../helper/DashboardInitialiser";
 
 function TopFiveMostExpensiveProjects({projects}) {
     function calculateTopProjects() {
-        let result = {
-            labels: [],
-            datasets: [
-                {
-                    label: 'Top 5 Most Expensive Projects',
-                    data: [],
-                    backgroundColor: '#f60e71',
-                }
-            ]
-        };
+        const result = getDefaultForTopFiveMostExpensiveProjects();
         for (let i = 0; i < projects?.length; i++) {
             result.labels.push(projects[i].name);
             result.datasets[0].data.push(projects[i].budget);

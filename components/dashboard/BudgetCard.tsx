@@ -1,9 +1,6 @@
 import {Circle, Stack, Text} from "@chakra-ui/react";
-import {Budget} from "../../helper/AppInterfaces";
 import {Icon} from "@chakra-ui/icons";
-interface BudgetCardProps {
-    budget: Budget
-}
+import {BudgetCardProps} from "../../helper/AppInterfaces";
 function BudgetCard(budget: BudgetCardProps) {
     let {backgroundColor, icon, value, title} = budget.budget
     return (

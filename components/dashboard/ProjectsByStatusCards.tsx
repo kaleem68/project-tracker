@@ -1,5 +1,5 @@
 import {SimpleGrid} from "@chakra-ui/react";
-import {calculateCardsStatusValues} from "./DashboardUtil";
+import {calculateCardsStatusValues} from "../../helper/DashboardUtil";
 import BudgetCard from "./BudgetCard";
 function ProjectsByStatusCards({projects, archiveCount}) {
     return (

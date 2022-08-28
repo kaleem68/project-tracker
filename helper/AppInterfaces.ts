@@ -27,3 +27,6 @@ export interface Budget{
     backgroundColor: string,
     icon: any
 }
+export interface BudgetCardProps {
+    budget: Budget
+}

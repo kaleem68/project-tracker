@@ -1,7 +1,7 @@
-import {getCardsByStatusDefault} from "./DashboardConst";
+import {getCardsByStatusDefault} from "./DashboardInitialiser";
 
 export function calculateCardsStatusValues(projects: any, archiveCount) {
-    let result = getCardsByStatusDefault();
+    const result = getCardsByStatusDefault();
     for (let i = 0; i < projects?.length; i++) {
         let project = projects[i];
         let count = project._count.id;
