@@ -16,7 +16,7 @@ import {
 import React from "react";
 import {NextPage} from "next";
 import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
-import {formatToCurrency} from "../../../apputil";
+import {formatToCurrency} from "../../../helper/AppUtil";
 const Completed: NextPage = () => {
     const toast = useToast()
     const projects = useLiveQuery.GetProjectsByStatus({

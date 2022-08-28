@@ -13,8 +13,8 @@ import {
 import {useForm} from "react-hook-form";
 import {useMutation} from "./generated/nextjs";
 import {CreateProjectInput} from "./generated/models";
-import {DEFAULT_PROJECT} from "../const";
-import {CreateProjectProps} from "../interfaces";
+import {DEFAULT_PROJECT} from "../helper/AppConst";
+import {CreateProjectProps} from "../helper/AppInterfaces";
 
 function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
     const toast = useToast()

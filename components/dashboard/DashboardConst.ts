@@ -1,4 +1,4 @@
-import {Budget} from "../../interfaces";
+import {Budget} from "../../helper/AppInterfaces";
 import {MdCancelPresentation, MdDoneOutline, MdOutlineCreateNewFolder, MdOutlineUnarchive} from "react-icons/md";
 import {GrInProgress} from "react-icons/gr";
 export function getCardsByStatusDefault(): Budget[] {

@@ -6,7 +6,7 @@ import TopFiveMostExpensiveProjects from "../components/dashboard/TopFiveMostExp
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from "chart.js";
 import ProjectsByStatus from "../components/dashboard/ProjectsCountByStatus";
 import BudgetCard from "../components/dashboard/BudgetCard";
-import {Budget} from "../interfaces";
+import {Budget} from "../helper/AppInterfaces";
 import {MdOutlineCreateNewFolder, MdDoneOutline, MdCancelPresentation, MdOutlineUnarchive} from "react-icons/md";
 import {GrInProgress} from "react-icons/gr";
 import ProjectsByStatusCards from "../components/dashboard/ProjectsByStatusCards";

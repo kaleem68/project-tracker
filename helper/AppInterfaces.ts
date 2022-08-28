@@ -1,3 +1,6 @@
+export interface HeaderProps{
+    title: String
+}
 export interface UpdateProject{
     id: number;
     name: string;

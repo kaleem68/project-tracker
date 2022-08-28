@@ -1,5 +1,5 @@
 import {Circle, Stack, Text} from "@chakra-ui/react";
-import {Budget} from "../../interfaces";
+import {Budget} from "../../helper/AppInterfaces";
 import {Icon} from "@chakra-ui/icons";
 interface BudgetCardProps {
     budget: Budget
