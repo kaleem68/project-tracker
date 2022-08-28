@@ -14,6 +14,8 @@ import type {
 	GetProjectsByStatusResponse,
 	GetProjectsByStatusInput,
 	GetProjectsByStatusResponseData,
+	GetProjectsCountGroupByStatusResponse,
+	GetProjectsCountGroupByStatusResponseData,
 	HelloResponse,
 	HelloResponseData,
 	TopFiveMostExpensiveProjectsResponse,
@@ -52,7 +54,7 @@ const defaultWunderGraphContextProperties: WunderGraphContextProperties<Role> = 
 	ssrCache: {},
 	client: null,
 	clientConfig: {
-		applicationHash: "d5fa605f",
+		applicationHash: "a4f4ba27",
 		applicationPath: "app/main",
 		baseURL: "http://localhost:9991",
 		sdkVersion: "0.96.1",
@@ -91,6 +93,13 @@ export const useQuery = {
 		operationName: "GetProjects",
 		requiresAuthentication: false,
 	}),
+	GetProjectsCountGroupByStatus: hooks.useQueryWithoutInput<GetProjectsCountGroupByStatusResponseData, Role>(
+		WunderGraphContext,
+		{
+			operationName: "GetProjectsCountGroupByStatus",
+			requiresAuthentication: false,
+		}
+	),
 	Hello: hooks.useQueryWithoutInput<HelloResponseData, Role>(WunderGraphContext, {
 		operationName: "Hello",
 		requiresAuthentication: false,
@@ -153,6 +162,12 @@ export const useLiveQuery = {
 	GetProjects: (args?: SubscriptionArgs) =>
 		hooks.useSubscriptionWithoutInput<GetProjectsResponseData, Role>(WunderGraphContext, {
 			operationName: "GetProjects",
+			isLiveQuery: true,
+			requiresAuthentication: false,
+		})(args),
+	GetProjectsCountGroupByStatus: (args?: SubscriptionArgs) =>
+		hooks.useSubscriptionWithoutInput<GetProjectsCountGroupByStatusResponseData, Role>(WunderGraphContext, {
+			operationName: "GetProjectsCountGroupByStatus",
 			isLiveQuery: true,
 			requiresAuthentication: false,
 		})(args),

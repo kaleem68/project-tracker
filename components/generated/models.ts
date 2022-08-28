@@ -57,6 +57,11 @@ export interface GetProjectsByStatusResponse {
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
+export interface GetProjectsCountGroupByStatusResponse {
+	data?: GetProjectsCountGroupByStatusResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
 export interface HelloResponse {
 	data?: HelloResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
@@ -126,6 +131,15 @@ export interface GetProjectsByStatusResponseData {
 		budget: number;
 		archived: boolean;
 		status: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
+	}[];
+}
+
+export interface GetProjectsCountGroupByStatusResponseData {
+	db_groupByProject: {
+		status: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
+		_count?: {
+			id: number;
+		};
 	}[];
 }
 

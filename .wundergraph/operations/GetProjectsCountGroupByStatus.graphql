@@ -1,0 +1,15 @@
+query GetProjectsCountGroupByStatus{
+    db_groupByProject(
+        where: {
+            archived:{
+                equals: false
+            }
+        }
+        by: [status]
+    ){
+        status,
+        _count {
+            id
+        }
+    }
+}
