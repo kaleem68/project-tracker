@@ -62,6 +62,11 @@ export interface HelloResponse {
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
+export interface TopFiveMostExpensiveProjectsResponse {
+	data?: TopFiveMostExpensiveProjectsResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
 export interface UpdateArchiveStatusResponse {
 	data?: UpdateArchiveStatusResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
@@ -126,6 +131,14 @@ export interface GetProjectsByStatusResponseData {
 
 export interface HelloResponseData {
 	gql_hello?: string;
+}
+
+export interface TopFiveMostExpensiveProjectsResponseData {
+	db_findManyProject: {
+		id: number;
+		name: string;
+		budget: number;
+	}[];
 }
 
 export interface UpdateArchiveStatusResponseData {

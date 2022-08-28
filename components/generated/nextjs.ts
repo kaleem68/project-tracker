@@ -16,6 +16,8 @@ import type {
 	GetProjectsByStatusResponseData,
 	HelloResponse,
 	HelloResponseData,
+	TopFiveMostExpensiveProjectsResponse,
+	TopFiveMostExpensiveProjectsResponseData,
 	UpdateArchiveStatusResponse,
 	UpdateArchiveStatusInput,
 	UpdateArchiveStatusResponseData,
@@ -50,7 +52,7 @@ const defaultWunderGraphContextProperties: WunderGraphContextProperties<Role> = 
 	ssrCache: {},
 	client: null,
 	clientConfig: {
-		applicationHash: "44bee2a8",
+		applicationHash: "d5fa605f",
 		applicationPath: "app/main",
 		baseURL: "http://localhost:9991",
 		sdkVersion: "0.96.1",
@@ -93,6 +95,13 @@ export const useQuery = {
 		operationName: "Hello",
 		requiresAuthentication: false,
 	}),
+	TopFiveMostExpensiveProjects: hooks.useQueryWithoutInput<TopFiveMostExpensiveProjectsResponseData, Role>(
+		WunderGraphContext,
+		{
+			operationName: "TopFiveMostExpensiveProjects",
+			requiresAuthentication: false,
+		}
+	),
 };
 
 export const useMutation = {
@@ -150,6 +159,12 @@ export const useLiveQuery = {
 	Hello: (args?: SubscriptionArgs) =>
 		hooks.useSubscriptionWithoutInput<HelloResponseData, Role>(WunderGraphContext, {
 			operationName: "Hello",
+			isLiveQuery: true,
+			requiresAuthentication: false,
+		})(args),
+	TopFiveMostExpensiveProjects: (args?: SubscriptionArgs) =>
+		hooks.useSubscriptionWithoutInput<TopFiveMostExpensiveProjectsResponseData, Role>(WunderGraphContext, {
+			operationName: "TopFiveMostExpensiveProjects",
 			isLiveQuery: true,
 			requiresAuthentication: false,
 		})(args),
