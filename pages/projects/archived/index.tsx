@@ -16,7 +16,7 @@ import {
 import React from "react";
 import {NextPage} from "next";
 import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
-import {formatToCurrency} from "../../../apputil";
+import {formatToCurrency} from "../../../helper/AppUtil";
 import {DeleteIcon} from "@chakra-ui/icons";
 
 const Archived: NextPage = () => {
@@ -35,7 +35,7 @@ const Archived: NextPage = () => {
         if (resp.status === "ok" && resp.data.db_updateOneProject) {
             toast({
                 title: 'Success',
-                description: `Project Unarchived`,
+                description: "Project unarchived",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
@@ -75,7 +75,7 @@ const Archived: NextPage = () => {
             if (resp.status === "ok" && resp.data.db_deleteOneProject) {
                 toast({
                     title: 'Success',
-                    description: "Project Deleted",
+                    description: "Project deleted",
                     status: 'success',
                     duration: 5000,
                     isClosable: true,
@@ -176,12 +176,13 @@ const Archived: NextPage = () => {
                                                             size={"sm"}
                                                             onClick={() => {
                                                                 unarchiveProjectStatus(data.id)
-                                                            }}>Unarchive</Button>
+                                                            }}>
+                                                            Unarchive
+                                                        </Button>
                                                         <DeleteIcon
                                                             onClick={() => deleteProjectAction(data.id)}
                                                             fontSize={'18px'}
                                                             cursor={"pointer"}/>
-
                                                     </Stack>
                                                 </Td>
                                                 <Td></Td>

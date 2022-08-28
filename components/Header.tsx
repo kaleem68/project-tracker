@@ -3,11 +3,7 @@ import {
     Text
 } from '@chakra-ui/react';
 import React from 'react';
-interface HeaderProps{
-    title?: string,
-    subtitle?: string,
-    icon?: string
-}
+import {HeaderProps} from "../helper/AppInterfaces";
 function Header({title}: HeaderProps) {
     return (
         <HStack bg={'#ffffff'} justify='space-between' minH='84px' px='20px'>

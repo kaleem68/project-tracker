@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import {useForm} from "react-hook-form";
 import {useMutation} from "./generated/nextjs";
-import {EditProjectProps, EditProjectPropsHeadingStatus, UpdateProject} from "../interfaces";
+import {EditProjectProps, EditProjectPropsHeadingStatus, UpdateProject} from "../helper/AppInterfaces";
 function EditProject({isOpen, onClose, onSuccess, defaultValues, status}: EditProjectProps) {
     const toast = useToast()
     const {

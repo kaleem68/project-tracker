@@ -40,7 +40,7 @@ function Sidebar() {
                     <NextLink href='/projects/new' passHref>
                         <Link
                             borderLeft={"1px solid gray.600"}
-                            _hover={!isActive('/projects') ? {bg: '#dadada'} : {}}
+                            _hover={{bg:"#dadada"}}
                             p={"10px"}
                             borderRadius={"10px"}
                             textAlign={"center"}>
@@ -56,7 +56,7 @@ function Sidebar() {
                                 borderLeft={"1px solid gray.600"}
                                 color={isActive('/projects/new') ? '#5031c2' : '#000000'}
                                 bg={isActive('/projects/new') ? '#EDF2F7' : ''}
-                                _hover={isActive('/projects/new') ? {bg: '#dadada'} : {}}
+                                _hover={{bg:"#dadada"}}
                                 p={"10px"}
                                 borderRadius={"10px"}
                                 textAlign={"center"}>
@@ -71,7 +71,7 @@ function Sidebar() {
                                 borderLeft={"1px solid gray.600"}
                                 color={isActive('/projects/inprogress') ? '#5031c2' : '#000000'}
                                 bg={isActive('/projects/inprogress') ? '#EDF2F7' : ''}
-                                _hover={isActive('/projects/inprogress') ? {bg: '#dadada'} : {}}
+                                _hover={{bg:"#dadada"}}
                                 p={"10px"}
                                 borderRadius={"10px"}
                                 textAlign={"center"}>
@@ -86,7 +86,7 @@ function Sidebar() {
                                 borderLeft={"1px solid gray.600"}
                                 color={isActive('/projects/completed') ? '#5031c2' : '#000000'}
                                 bg={isActive('/projects/completed') ? '#EDF2F7' : ''}
-                                _hover={isActive('/projects/completed') ? {bg: '#dadada'} : {}}
+                                _hover={{bg:"#dadada"}}
                                 p={"10px"}
                                 borderRadius={"10px"}
                                 textAlign={"center"}>
@@ -101,7 +101,7 @@ function Sidebar() {
                                 borderLeft={"1px solid gray.600"}
                                 color={isActive('/projects/cancelled') ? '#5031c2' : '#000000'}
                                 bg={isActive('/projects/cancelled') ? '#EDF2F7' : ''}
-                                _hover={isActive('/projects/cancelled') ? {bg: '#dadada'} : {}}
+                                _hover={{bg:"#dadada"}}
                                 p={"10px"}
                                 borderRadius={"10px"}
                                 textAlign={"center"}>
@@ -109,7 +109,6 @@ function Sidebar() {
                                 Cancelled
                             </Link>
                         </NextLink>
-
                         <NextLink href='/projects/archived' passHref>
                             <Link
                                 alignSelf={"flex-end"}
@@ -117,7 +116,7 @@ function Sidebar() {
                                 borderLeft={"1px solid gray.600"}
                                 color={isActive('/projects/archived') ? '#5031c2' : '#000000'}
                                 bg={isActive('/projects/archived') ? '#EDF2F7' : ''}
-                                _hover={isActive('/projects/archived') ? {bg: '#dadada'} : {}}
+                                _hover={{bg:"#dadada"}}
                                 p={"10px"}
                                 borderRadius={"10px"}
                                 textAlign={"center"}>
@@ -125,7 +124,6 @@ function Sidebar() {
                                 Archived
                             </Link>
                         </NextLink>
-
                     </>
                 </Stack>
             </Stack>

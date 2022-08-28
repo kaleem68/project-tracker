@@ -14,7 +14,7 @@ const db = introspect.postgresql({
 	apiNamespace: 'db',
 	databaseURL: 'postgresql://admin:admin@localhost:54322/example?schema=public',
 	introspection:{
-		pollingIntervalSeconds: 10
+		pollingIntervalSeconds: 3600
 	}
 });
 

@@ -1,11 +1,9 @@
 import {Circle, Stack, Text} from "@chakra-ui/react";
-import {Budget} from "../../interfaces";
 import {Icon} from "@chakra-ui/icons";
-interface BudgetCardProps {
-    budget: Budget
-}
-function BudgetCard(budget: BudgetCardProps) {
-    let {backgroundColor, icon, value, title} = budget.budget
+import {StatusCardProps} from "../../helper/AppInterfaces";
+
+function ProjectByStatusCard(statusCard: StatusCardProps) {
+    let {backgroundColor, icon, value, title} = statusCard.statusCard
     return (
         <Stack
             align='center'
@@ -33,4 +31,5 @@ function BudgetCard(budget: BudgetCardProps) {
         </Stack>
     )
 }
-export default BudgetCard;
+
+export default ProjectByStatusCard;

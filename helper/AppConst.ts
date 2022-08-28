@@ -1,4 +1,4 @@
-import {CreateProjectInput} from "./components/generated/models";
+import {CreateProjectInput} from "../components/generated/models";
 
 export const DEFAULT_PROJECT: CreateProjectInput = {
     name: "",

@@ -19,8 +19,8 @@ import {NextPage} from "next";
 import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 import CreateProject from "../../../components/CreateProject";
 import EditProject from "../../../components/EditProject";
-import {formatToCurrency} from "../../../apputil";
-import {EditProjectPropsHeadingStatus, UpdateProject} from "../../../interfaces";
+import {formatToCurrency} from "../../../helper/AppUtil";
+import {EditProjectPropsHeadingStatus, UpdateProject} from "../../../helper/AppInterfaces";
 
 const NewProjects: NextPage = () => {
     const toast = useToast();
@@ -77,7 +77,7 @@ const NewProjects: NextPage = () => {
         if(resp.status === "ok" && resp.data.db_updateOneProject){
             toast({
                 title: 'Success',
-                description: "Project status changed to progress",
+                description: "Project in progress",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,

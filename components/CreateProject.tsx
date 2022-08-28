@@ -13,8 +13,8 @@ import {
 import {useForm} from "react-hook-form";
 import {useMutation} from "./generated/nextjs";
 import {CreateProjectInput} from "./generated/models";
-import {DEFAULT_PROJECT} from "../const";
-import {CreateProjectProps} from "../interfaces";
+import {DEFAULT_PROJECT} from "../helper/AppConst";
+import {CreateProjectProps} from "../helper/AppInterfaces";
 
 function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
     const toast = useToast()
@@ -78,13 +78,11 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
                                 id='name'
                                 placeholder='name'
                                 name={"name"}
-                                {...register('name')}
+                                {...register('name', {
+                                    required: 'This is required',
+                                    maxLength: {value: 255, message: 'Maximum length should be 255'}
+                                })}
                             />
-
-                            {/*    , {*/}
-                            {/*    required: 'This is required',*/}
-                            {/*    maxLength: {value: 255, message: 'Maximum length should be 255'}*/}
-                            {/*}*/}
                             <FormErrorMessage>{(errors.name?.type === 'required' || errors.name?.type === "maxLength") && errors.name.message}</FormErrorMessage>
                         </FormControl>
                         <br/>
@@ -103,7 +101,6 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
                             <FormErrorMessage>{(errors.description?.type === 'required' || errors.description?.type === "maxLength") && errors.description.message}</FormErrorMessage>
                         </FormControl>
                         <br/>
-
                         <FormControl isInvalid={!!errors?.budget}>
                             <FormLabel htmlFor='budget'>* Budget</FormLabel>
                             <Input

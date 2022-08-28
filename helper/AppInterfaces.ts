@@ -1,3 +1,6 @@
+export interface HeaderProps{
+    title: String
+}
 export interface UpdateProject{
     id: number;
     name: string;
@@ -17,10 +20,13 @@ export enum EditProjectPropsHeadingStatus{
     NEW,
     PROGRESS
 }
-export interface Budget{
+export interface StatusCard{
     title: string,
     value: number,
     percentageOfTotal: number,
     backgroundColor: string,
     icon: any
+}
+export interface StatusCardProps {
+    statusCard: StatusCard
 }

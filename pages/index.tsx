@@ -1,15 +1,11 @@
 import {NextPage} from 'next';
 import {useLiveQuery, withWunderGraph} from '../components/generated/nextjs';
-import {GridItem, SimpleGrid, Stack, Text} from "@chakra-ui/react";
+import {GridItem, SimpleGrid, Stack} from "@chakra-ui/react";
 import React from "react";
 import TopFiveMostExpensiveProjects from "../components/dashboard/TopFiveMostExpensiveProjects";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from "chart.js";
 import ProjectsByStatus from "../components/dashboard/ProjectsCountByStatus";
-import BudgetCard from "../components/dashboard/BudgetCard";
-import {Budget} from "../interfaces";
-import {MdOutlineCreateNewFolder, MdDoneOutline, MdCancelPresentation, MdOutlineUnarchive} from "react-icons/md";
-import {GrInProgress} from "react-icons/gr";
-import ProjectsByStatusCards from "../components/dashboard/ProjectsByStatusCards";
+import ProjectsByStatusCardsList from "../components/dashboard/ProjectsByStatusCardsList";
 
 ChartJS.register(
     CategoryScale,
@@ -26,7 +22,7 @@ const Dashboard: NextPage = () => {
 
     function getArchiveCount() {
         let count = 0;
-        if(countArchiveProjects.result.status == "ok"){
+        if (countArchiveProjects.result.status === "ok") {
             count = countArchiveProjects.result.data?.db_aggregateProject._count.id
         }
         return count;
@@ -34,19 +30,19 @@ const Dashboard: NextPage = () => {
 
     return (
         <Stack bg='#E5E5E5' h='100vh'>
-            {projectsCountGroupByStatus.result.status == "ok" &&
-                <ProjectsByStatusCards
+            {projectsCountGroupByStatus.result.status === "ok" &&
+                <ProjectsByStatusCardsList
                     archiveCount={getArchiveCount()}
                     projects={projectsCountGroupByStatus.result.data?.db_groupByProject}/>
             }
             <SimpleGrid columns={4} pt={'24px'} spacing='24px'>
                 <GridItem colSpan={2}>
-                    {mostExpensiveProjects.result.status == "ok" &&
+                    {mostExpensiveProjects.result.status === "ok" &&
                         <TopFiveMostExpensiveProjects projects={mostExpensiveProjects.result.data?.db_findManyProject}/>
                     }
                 </GridItem>
                 <GridItem colSpan={2}>
-                    {projectsCountGroupByStatus.result.status == "ok" &&
+                    {projectsCountGroupByStatus.result.status === "ok" &&
                         <ProjectsByStatus projects={projectsCountGroupByStatus.result.data?.db_groupByProject}/>
                     }
                 </GridItem>

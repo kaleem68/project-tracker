@@ -16,7 +16,8 @@ import {
 import React from "react";
 import {NextPage} from "next";
 import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
-import {formatToCurrency} from "../../../apputil";
+import {formatToCurrency} from "../../../helper/AppUtil";
+
 const Completed: NextPage = () => {
     const toast = useToast()
     const projects = useLiveQuery.GetProjectsByStatus({
@@ -33,16 +34,15 @@ const Completed: NextPage = () => {
                 archived: {set: true}
             }
         })
-        if(resp.status === "ok" && resp.data.db_updateOneProject){
+        if (resp.status === "ok" && resp.data.db_updateOneProject) {
             toast({
                 title: 'Success',
-                description: "Project Archived",
+                description: "Project archived",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
             })
-        }
-        else {
+        } else {
             toast({
                 title: "Error",
                 description: "Oops, Something went wrong",
@@ -131,7 +131,9 @@ const Completed: NextPage = () => {
                                                     <Stack spacing={"10px"} isInline>
                                                         <Button
                                                             size={"sm"}
-                                                            onClick={() => {archiveProjectStatus(data.id)}} bg={"blue.300"}>Archive</Button>
+                                                            onClick={() => {
+                                                                archiveProjectStatus(data.id)
+                                                            }} bg={"blue.300"}>Archive</Button>
 
                                                     </Stack>
                                                 </Td>

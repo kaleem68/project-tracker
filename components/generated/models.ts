@@ -52,11 +52,6 @@ export interface GetArchivedProjectsResponse {
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
-export interface GetProjectsResponse {
-	data?: GetProjectsResponseData;
-	errors?: ReadonlyArray<GraphQLError>;
-}
-
 export interface GetProjectsByStatusResponse {
 	data?: GetProjectsByStatusResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
@@ -64,11 +59,6 @@ export interface GetProjectsByStatusResponse {
 
 export interface GetProjectsCountGroupByStatusResponse {
 	data?: GetProjectsCountGroupByStatusResponseData;
-	errors?: ReadonlyArray<GraphQLError>;
-}
-
-export interface HelloResponse {
-	data?: HelloResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
@@ -124,17 +114,6 @@ export interface GetArchivedProjectsResponseData {
 	}[];
 }
 
-export interface GetProjectsResponseData {
-	db_findManyProject: {
-		id: number;
-		name: string;
-		description: string;
-		createdAt: string;
-		budget: number;
-		archived: boolean;
-	}[];
-}
-
 export interface GetProjectsByStatusResponseData {
 	db_findManyProject: {
 		id: number;
@@ -154,10 +133,6 @@ export interface GetProjectsCountGroupByStatusResponseData {
 			id: number;
 		};
 	}[];
-}
-
-export interface HelloResponseData {
-	gql_hello?: string;
 }
 
 export interface TopFiveMostExpensiveProjectsResponseData {

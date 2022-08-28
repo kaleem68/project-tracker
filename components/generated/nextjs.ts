@@ -11,15 +11,11 @@ import type {
 	DeleteProjectResponseData,
 	GetArchivedProjectsResponse,
 	GetArchivedProjectsResponseData,
-	GetProjectsResponse,
-	GetProjectsResponseData,
 	GetProjectsByStatusResponse,
 	GetProjectsByStatusInput,
 	GetProjectsByStatusResponseData,
 	GetProjectsCountGroupByStatusResponse,
 	GetProjectsCountGroupByStatusResponseData,
-	HelloResponse,
-	HelloResponseData,
 	TopFiveMostExpensiveProjectsResponse,
 	TopFiveMostExpensiveProjectsResponseData,
 	UpdateArchiveStatusResponse,
@@ -56,7 +52,7 @@ const defaultWunderGraphContextProperties: WunderGraphContextProperties<Role> = 
 	ssrCache: {},
 	client: null,
 	clientConfig: {
-		applicationHash: "6ff3776d",
+		applicationHash: "88d6b13e",
 		applicationPath: "app/main",
 		baseURL: "http://localhost:9991",
 		sdkVersion: "0.96.1",
@@ -95,10 +91,6 @@ export const useQuery = {
 		operationName: "GetArchivedProjects",
 		requiresAuthentication: false,
 	}),
-	GetProjects: hooks.useQueryWithoutInput<GetProjectsResponseData, Role>(WunderGraphContext, {
-		operationName: "GetProjects",
-		requiresAuthentication: false,
-	}),
 	GetProjectsCountGroupByStatus: hooks.useQueryWithoutInput<GetProjectsCountGroupByStatusResponseData, Role>(
 		WunderGraphContext,
 		{
@@ -106,10 +98,6 @@ export const useQuery = {
 			requiresAuthentication: false,
 		}
 	),
-	Hello: hooks.useQueryWithoutInput<HelloResponseData, Role>(WunderGraphContext, {
-		operationName: "Hello",
-		requiresAuthentication: false,
-	}),
 	TopFiveMostExpensiveProjects: hooks.useQueryWithoutInput<TopFiveMostExpensiveProjectsResponseData, Role>(
 		WunderGraphContext,
 		{
@@ -171,21 +159,9 @@ export const useLiveQuery = {
 			isLiveQuery: true,
 			requiresAuthentication: false,
 		})(args),
-	GetProjects: (args?: SubscriptionArgs) =>
-		hooks.useSubscriptionWithoutInput<GetProjectsResponseData, Role>(WunderGraphContext, {
-			operationName: "GetProjects",
-			isLiveQuery: true,
-			requiresAuthentication: false,
-		})(args),
 	GetProjectsCountGroupByStatus: (args?: SubscriptionArgs) =>
 		hooks.useSubscriptionWithoutInput<GetProjectsCountGroupByStatusResponseData, Role>(WunderGraphContext, {
 			operationName: "GetProjectsCountGroupByStatus",
-			isLiveQuery: true,
-			requiresAuthentication: false,
-		})(args),
-	Hello: (args?: SubscriptionArgs) =>
-		hooks.useSubscriptionWithoutInput<HelloResponseData, Role>(WunderGraphContext, {
-			operationName: "Hello",
 			isLiveQuery: true,
 			requiresAuthentication: false,
 		})(args),
