@@ -1,0 +1,13 @@
+query CountArchiveProjects{
+    db_aggregateProject(
+        where: {
+            archived:{
+                equals: true
+            }
+        }
+    ){
+        _count {
+            id
+        }
+    }
+}

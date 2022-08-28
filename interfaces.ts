@@ -17,3 +17,10 @@ export enum EditProjectPropsHeadingStatus{
     NEW,
     PROGRESS
 }
+export interface Budget{
+    title: string,
+    value: number,
+    percentageOfTotal: number,
+    backgroundColor: string,
+    icon: any
+}

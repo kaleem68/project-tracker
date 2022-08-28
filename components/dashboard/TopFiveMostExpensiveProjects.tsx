@@ -10,7 +10,7 @@ function TopFiveMostExpensiveProjects({projects}) {
                 {
                     label: 'Top 5 Most Expensive Projects',
                     data: [],
-                    backgroundColor: '#FF006E',
+                    backgroundColor: '#f60e71',
                 }
             ]
         };

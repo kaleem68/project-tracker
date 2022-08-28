@@ -32,6 +32,11 @@ export interface UpdateProjectStatusInput {
 	status?: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
 }
 
+export interface CountArchiveProjectsResponse {
+	data?: CountArchiveProjectsResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
 export interface CreateProjectResponse {
 	data?: CreateProjectResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
@@ -85,6 +90,14 @@ export interface UpdateProjectResponse {
 export interface UpdateProjectStatusResponse {
 	data?: UpdateProjectStatusResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
+}
+
+export interface CountArchiveProjectsResponseData {
+	db_aggregateProject: {
+		_count?: {
+			id: number;
+		};
+	};
 }
 
 export interface CreateProjectResponseData {
