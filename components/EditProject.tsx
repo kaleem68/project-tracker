@@ -35,16 +35,7 @@ function EditProject({isOpen, onClose, onSuccess, defaultValues, status}: EditPr
                 budget: {set: budget}
             }
         })
-        if (resp.status == "error") {
-            toast({
-                title: "Error",
-                description: "Oops, Something went wrong",
-                status: "error",
-                duration: 5000,
-                isClosable: true,
-            })
-        }
-        else{
+        if (resp.status === "ok" && resp.data.db_updateOneProject) {
             toast({
                 title: 'Success',
                 description: "Project updated",
@@ -54,6 +45,15 @@ function EditProject({isOpen, onClose, onSuccess, defaultValues, status}: EditPr
             })
             onSuccess();
             reset();
+        }
+        else{
+            toast({
+                title: "Error",
+                description: "Oops, Something went wrong",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
         }
     }
     function closeForm(): void {
@@ -97,10 +97,7 @@ function EditProject({isOpen, onClose, onSuccess, defaultValues, status}: EditPr
                                 id='description'
                                 name={"description"}
                                 placeholder='description'
-                                {...register('description', {
-                                    required: 'This is required',
-                                    maxLength: {value: 1000, message: 'Maximum length should be 1000'}
-                                })}
+                                {...register('description')}
                             />
                             <FormErrorMessage>{ (errors.description?.type === 'required' || errors.description?.type === "maxLength") && errors.description.message }</FormErrorMessage>
                         </FormControl>
@@ -115,7 +112,7 @@ function EditProject({isOpen, onClose, onSuccess, defaultValues, status}: EditPr
                                 placeholder='budget'
                                 {...register('budget',{
                                     required: 'This is required',
-                                    min: {value: -2, message: 'Minimum value should be -2'}
+                                    min: {value: 0, message: 'Minimum value should be 0'}
                                 })}
                             />
                             <FormErrorMessage>{ (errors.budget?.type === 'required' || errors.budget?.type === "min") && errors.budget.message }</FormErrorMessage>
