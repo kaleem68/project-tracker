@@ -67,11 +67,6 @@ export interface GetProjectsCountGroupByStatusResponse {
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
-export interface HelloResponse {
-	data?: HelloResponseData;
-	errors?: ReadonlyArray<GraphQLError>;
-}
-
 export interface TopFiveMostExpensiveProjectsResponse {
 	data?: TopFiveMostExpensiveProjectsResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
@@ -154,10 +149,6 @@ export interface GetProjectsCountGroupByStatusResponseData {
 			id: number;
 		};
 	}[];
-}
-
-export interface HelloResponseData {
-	gql_hello?: string;
 }
 
 export interface TopFiveMostExpensiveProjectsResponseData {
