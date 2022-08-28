@@ -176,12 +176,13 @@ const Archived: NextPage = () => {
                                                             size={"sm"}
                                                             onClick={() => {
                                                                 unarchiveProjectStatus(data.id)
-                                                            }}>Unarchive</Button>
+                                                            }}>
+                                                            Unarchive
+                                                        </Button>
                                                         <DeleteIcon
                                                             onClick={() => deleteProjectAction(data.id)}
                                                             fontSize={'18px'}
                                                             cursor={"pointer"}/>
-
                                                     </Stack>
                                                 </Td>
                                                 <Td></Td>

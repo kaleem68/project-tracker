@@ -1,6 +1,6 @@
 import {NextPage} from 'next';
 import {useLiveQuery, withWunderGraph} from '../components/generated/nextjs';
-import {GridItem, SimpleGrid, Stack, Text} from "@chakra-ui/react";
+import {GridItem, SimpleGrid, Stack} from "@chakra-ui/react";
 import React from "react";
 import TopFiveMostExpensiveProjects from "../components/dashboard/TopFiveMostExpensiveProjects";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from "chart.js";
