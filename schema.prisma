@@ -3,12 +3,6 @@ datasource db {
   url      = "postgresql://admin:admin@localhost:54322/example?schema=public"
 }
 
-model user {
-  id    Int    @id @default(autoincrement())
-  email String @unique
-  name  String
-}
-
 model Project {
   id          Int      @id @default(autoincrement())
   name        String   @db.VarChar(255)
