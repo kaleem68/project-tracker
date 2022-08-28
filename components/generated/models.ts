@@ -32,6 +32,11 @@ export interface UpdateProjectStatusInput {
 	status?: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
 }
 
+export interface CountArchiveProjectsResponse {
+	data?: CountArchiveProjectsResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
 export interface CreateProjectResponse {
 	data?: CreateProjectResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
@@ -57,8 +62,18 @@ export interface GetProjectsByStatusResponse {
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
+export interface GetProjectsCountGroupByStatusResponse {
+	data?: GetProjectsCountGroupByStatusResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
 export interface HelloResponse {
 	data?: HelloResponseData;
+	errors?: ReadonlyArray<GraphQLError>;
+}
+
+export interface TopFiveMostExpensiveProjectsResponse {
+	data?: TopFiveMostExpensiveProjectsResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
 }
 
@@ -75,6 +90,14 @@ export interface UpdateProjectResponse {
 export interface UpdateProjectStatusResponse {
 	data?: UpdateProjectStatusResponseData;
 	errors?: ReadonlyArray<GraphQLError>;
+}
+
+export interface CountArchiveProjectsResponseData {
+	db_aggregateProject: {
+		_count?: {
+			id: number;
+		};
+	};
 }
 
 export interface CreateProjectResponseData {
@@ -124,8 +147,25 @@ export interface GetProjectsByStatusResponseData {
 	}[];
 }
 
+export interface GetProjectsCountGroupByStatusResponseData {
+	db_groupByProject: {
+		status: "NEW" | "PROGRESS" | "COMPLETED" | "CANCELLED" | "ARCHIVED";
+		_count?: {
+			id: number;
+		};
+	}[];
+}
+
 export interface HelloResponseData {
 	gql_hello?: string;
+}
+
+export interface TopFiveMostExpensiveProjectsResponseData {
+	db_findManyProject: {
+		id: number;
+		name: string;
+		budget: number;
+	}[];
 }
 
 export interface UpdateArchiveStatusResponseData {

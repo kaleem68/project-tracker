@@ -1,26 +1,57 @@
-import { NextPage } from 'next';
-import {withWunderGraph } from '../components/generated/nextjs';
-import {SimpleGrid, Stack, Text} from "@chakra-ui/react";
+import {NextPage} from 'next';
+import {useLiveQuery, withWunderGraph} from '../components/generated/nextjs';
+import {GridItem, SimpleGrid, Stack, Text} from "@chakra-ui/react";
 import React from "react";
+import TopFiveMostExpensiveProjects from "../components/dashboard/TopFiveMostExpensiveProjects";
+import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from "chart.js";
+import ProjectsByStatus from "../components/dashboard/ProjectsCountByStatus";
+import BudgetCard from "../components/dashboard/BudgetCard";
+import {Budget} from "../interfaces";
+import {MdOutlineCreateNewFolder, MdDoneOutline, MdCancelPresentation, MdOutlineUnarchive} from "react-icons/md";
+import {GrInProgress} from "react-icons/gr";
+import ProjectsByStatusCards from "../components/dashboard/ProjectsByStatusCards";
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
 const Dashboard: NextPage = () => {
-	return  <Stack p='30px' bg='#E5E5E5' h='100vh'>
-			<SimpleGrid columns={3} gap='30px' bg='#E5E5E5'>
-				<Stack py="10px" px='25px' align={'center'} border={'1px solid #0000000D'}
-					   boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)' borderRadius='8px' bg={'#5031c2'} h='80px'>
-					<Text fontSize={'14px'} fontWeight='700' color='white'>App Created</Text>
-					<Text fontSize={'24px'} fontWeight='700' color='white'>5</Text>
-				</Stack>
-				<Stack py="10px" px='25px' align={'center'} border={'1px solid #0000000D'}
-					   boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)' borderRadius='8px' bg={'#5031c2'} h='80px'>
-					<Text fontSize={'14px'} fontWeight='700' color='white'>App Aborted</Text>
-					<Text fontSize={'24px'} fontWeight='700' color='white'>12</Text>
-				</Stack>
-				<Stack py="10px" px='25px' align={'center'} border={'1px solid #0000000D'}
-					   boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)' borderRadius='8px' bg={'#5031c2'} h='80px'>
-					<Text fontSize={'14px'} fontWeight='700' color='white'>App Budget</Text>
-					<Text fontSize={'24px'} fontWeight='700' color='white'>£95k</Text>
-				</Stack>
-			</SimpleGrid>
-		</Stack>
+    const mostExpensiveProjects = useLiveQuery.TopFiveMostExpensiveProjects()
+    const projectsCountGroupByStatus = useLiveQuery.GetProjectsCountGroupByStatus()
+    const countArchiveProjects = useLiveQuery.CountArchiveProjects();
+
+    function getArchiveCount() {
+        let count = 0;
+        if(countArchiveProjects.result.status == "ok"){
+            count = countArchiveProjects.result.data?.db_aggregateProject._count.id
+        }
+        return count;
+    }
+
+    return (
+        <Stack bg='#E5E5E5' h='100vh'>
+            {projectsCountGroupByStatus.result.status == "ok" &&
+                <ProjectsByStatusCards
+                    archiveCount={getArchiveCount()}
+                    projects={projectsCountGroupByStatus.result.data?.db_groupByProject}/>
+            }
+            <SimpleGrid columns={4} pt={'24px'} spacing='24px'>
+                <GridItem colSpan={2}>
+                    {mostExpensiveProjects.result.status == "ok" &&
+                        <TopFiveMostExpensiveProjects projects={mostExpensiveProjects.result.data?.db_findManyProject}/>
+                    }
+                </GridItem>
+                <GridItem colSpan={2}>
+                    {projectsCountGroupByStatus.result.status == "ok" &&
+                        <ProjectsByStatus projects={projectsCountGroupByStatus.result.data?.db_groupByProject}/>
+                    }
+                </GridItem>
+            </SimpleGrid>
+        </Stack>
+    )
 };
 export default withWunderGraph(Dashboard);

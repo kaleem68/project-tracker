@@ -1,0 +1,10 @@
+query TopFiveMostExpensiveProjects{
+    db_findManyProject(
+        take: 5,
+        orderBy: {budget: desc}
+    ){
+        id,
+        name,
+        budget
+    }
+}
