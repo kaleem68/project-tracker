@@ -28,16 +28,17 @@ const InProgress: NextPage = () => {
         input: {
             status: {equals: "PROGRESS"}
         }
-    });    const {mutate: updateProjectStatus} = useMutation.UpdateProjectStatus();
+    });
+    const {mutate: updateProjectStatus} = useMutation.UpdateProjectStatus();
     const {mutate: archiveProject} = useMutation.UpdateArchiveStatus();
 
     const [editProject, setEditProject] = useState<boolean>(false);
     const [projectToBeEdited, setProjectToBeEdited] = useState<UpdateProject>(null);
 
-
     function cancelEditProject() {
         setEditProject(false);
     }
+
     function enableEditProject(data) {
         let editProject: UpdateProject = {
             id: data.id,
@@ -48,6 +49,7 @@ const InProgress: NextPage = () => {
         setProjectToBeEdited(editProject);
         setEditProject(true);
     }
+
     function projectSaved() {
         setEditProject(false);
     }
@@ -55,9 +57,9 @@ const InProgress: NextPage = () => {
     async function completeOrCancel(complete: boolean, id: number) {
         let successMessage = complete ? "Project Completed" : "Project Cancelled";
         //confirm before delete
-        if (!complete){
+        if (!complete) {
             let confirm = window.confirm("Are you sure you want to cancel this project?")
-            if (!confirm){
+            if (!confirm) {
                 return
             }
         }
@@ -67,7 +69,7 @@ const InProgress: NextPage = () => {
                 status: complete ? "COMPLETED" : "CANCELLED"
             }
         })
-        if(resp.status === "ok" && resp.data.db_updateOneProject){
+        if (resp.status === "ok" && resp.data.db_updateOneProject) {
             toast({
                 title: 'Success',
                 description: successMessage,
@@ -75,8 +77,7 @@ const InProgress: NextPage = () => {
                 duration: 5000,
                 isClosable: true,
             })
-        }
-        else{
+        } else {
             toast({
                 title: "Error",
                 description: "Oops, Something went wrong",
@@ -86,6 +87,7 @@ const InProgress: NextPage = () => {
             })
         }
     }
+
     async function archiveProjectStatus(id: number) {
         let resp = await archiveProject({
             input: {
@@ -93,7 +95,7 @@ const InProgress: NextPage = () => {
                 archived: {set: true}
             }
         })
-        if(resp.status === "ok" && resp.data.db_updateOneProject){
+        if (resp.status === "ok" && resp.data.db_updateOneProject) {
             toast({
                 title: 'Success',
                 description: "Project Archived",
@@ -101,8 +103,7 @@ const InProgress: NextPage = () => {
                 duration: 5000,
                 isClosable: true,
             })
-        }
-        else {
+        } else {
             toast({
                 title: "Error",
                 description: "Oops, Something went wrong",
@@ -190,9 +191,15 @@ const InProgress: NextPage = () => {
                                                 <Td>
                                                     <Stack spacing={"10px"} isInline>
                                                         <VStack>
-                                                        <Button onClick={() => {completeOrCancel(true, data.id)}} bg={"green.300"} size={"xs"}>Complete</Button>
-                                                        <Button onClick={() => {archiveProjectStatus(data.id)}} bg={"blue.300"} size={"xs"}>Archive</Button>
-                                                        <Button onClick={() => {completeOrCancel(false, data.id)}} bg={"red.300"} size={"xs"}>Cancel</Button>
+                                                            <Button onClick={() => {
+                                                                completeOrCancel(true, data.id)
+                                                            }} bg={"green.300"} size={"xs"}>Complete</Button>
+                                                            <Button onClick={() => {
+                                                                archiveProjectStatus(data.id)
+                                                            }} bg={"blue.300"} size={"xs"}>Archive</Button>
+                                                            <Button onClick={() => {
+                                                                completeOrCancel(false, data.id)
+                                                            }} bg={"red.300"} size={"xs"}>Cancel</Button>
                                                         </VStack>
                                                         <EditIcon
                                                             onClick={() => {
