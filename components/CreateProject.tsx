@@ -78,13 +78,11 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
                                 id='name'
                                 placeholder='name'
                                 name={"name"}
-                                {...register('name')}
+                                {...register('name', {
+                                    required: 'This is required',
+                                    maxLength: {value: 255, message: 'Maximum length should be 255'}
+                                })}
                             />
-
-                            {/*    , {*/}
-                            {/*    required: 'This is required',*/}
-                            {/*    maxLength: {value: 255, message: 'Maximum length should be 255'}*/}
-                            {/*}*/}
                             <FormErrorMessage>{(errors.name?.type === 'required' || errors.name?.type === "maxLength") && errors.name.message}</FormErrorMessage>
                         </FormControl>
                         <br/>
@@ -103,7 +101,6 @@ function CreateProject({isOpen, onClose, onSuccess}: CreateProjectProps) {
                             <FormErrorMessage>{(errors.description?.type === 'required' || errors.description?.type === "maxLength") && errors.description.message}</FormErrorMessage>
                         </FormControl>
                         <br/>
-
                         <FormControl isInvalid={!!errors?.budget}>
                             <FormLabel htmlFor='budget'>* Budget</FormLabel>
                             <Input
