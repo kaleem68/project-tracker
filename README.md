@@ -6,11 +6,17 @@ Track my project is simple project management and tracking tool with following f
 - Track Project: Maintain **5** Stages of the project
 - Dashboards
 
+## Running App
+- Make sure you have *docker* installed and running and you also need latest version of *node*.
+- Run following commands After a while, a new browser tab will open, and you can start exploring the application. If no tab is open, navigate to http://localhost:3000.
+```js
+npm install && npm start
+```
 ## Features
 
 ### Manage project
 
-- Managing project includes changining the project **Stages** or performing a CRUD create, read, update, delete operation on the project.
+- Managing project includes changining the project *Stages* or performing a CRUD create, read, update, delete operation on the project.
 
 ### Track Project
 
@@ -18,15 +24,15 @@ Track my project is simple project management and tracking tool with following f
   - **New**: _Default_ status when project is created.
   - **In Progress**: Work in progress.
   - **Completed**: Project finished successfully.
-  - **Cancelled**: Not completed, aborted.
-  - **Archived**: Cancelled or in no longer use.
+  - **Cancelled**: Project cancelled.
+  - **Archived**: Project marked as archived.
 
 ### Dashboards
 
 - Home screen displays the dashboard stats with visual charts.
-  - No of project for each _stage_.
-  - Project stats based on the year created.
+  - Number of project for each *Stage*
+  - Top 5 most expensive projects.
 
-### Tech Stack
+## Tech Stack
 
-- WunderGraph, NextJS, TypeScript, PostgreSQL, Chakra UI
+- NextJS, WunderGraph, TypeScript, PostgreSQL, react-chartjs-2, Chakra UI
