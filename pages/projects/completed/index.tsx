@@ -57,6 +57,9 @@ const Completed: NextPage = () => {
             })
         }
     }
+    if (projects.result.status === "error") {
+        return (<Text fontSize={"18px"} size={"xl"}>Error...</Text>)
+    }
     if (projects.result.status !== "ok") {
         return (<Loader/>)
     }
