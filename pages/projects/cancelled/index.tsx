@@ -17,6 +17,7 @@ import React from "react";
 import {NextPage} from "next";
 import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 import {formatToCurrency} from "../../../helper/AppUtil";
+import Loader from "../../../components/Loader";
 
 const Completed: NextPage = () => {
     const toast = useToast()
@@ -52,7 +53,9 @@ const Completed: NextPage = () => {
             })
         }
     }
-
+    if (projects.result.status !== "ok") {
+        return (<Loader/>)
+    }
     return (
         <>
             <SimpleGrid gap='22px'>

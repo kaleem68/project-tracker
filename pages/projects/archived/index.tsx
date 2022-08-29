@@ -18,6 +18,7 @@ import {NextPage} from "next";
 import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 import {formatToCurrency} from "../../../helper/AppUtil";
 import {DeleteIcon} from "@chakra-ui/icons";
+import Loader from "../../../components/Loader";
 
 const Archived: NextPage = () => {
     const toast = useToast()
@@ -91,7 +92,9 @@ const Archived: NextPage = () => {
             }
         }
     }
-
+    if (projects.result.status !== "ok") {
+        return (<Loader/>)
+    }
     return (
         <>
             <SimpleGrid gap='22px'>

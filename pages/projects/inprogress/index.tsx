@@ -21,6 +21,7 @@ import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/ge
 import EditProject from "../../../components/EditProject";
 import {formatToCurrency} from "../../../helper/AppUtil";
 import {EditProjectPropsHeadingStatus, UpdateProject} from "../../../helper/AppInterfaces";
+import Loader from "../../../components/Loader";
 
 const InProgress: NextPage = () => {
     const toast = useToast()
@@ -113,7 +114,9 @@ const InProgress: NextPage = () => {
             })
         }
     }
-
+    if (projects.result.status !== "ok") {
+        return (<Loader/>)
+    }
     return (
         <>
             <SimpleGrid gap='22px'>

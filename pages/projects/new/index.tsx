@@ -21,6 +21,7 @@ import CreateProject from "../../../components/CreateProject";
 import EditProject from "../../../components/EditProject";
 import {formatToCurrency} from "../../../helper/AppUtil";
 import {EditProjectPropsHeadingStatus, UpdateProject} from "../../../helper/AppInterfaces";
+import Loader from "../../../components/Loader";
 
 const NewProjects: NextPage = () => {
     const toast = useToast();
@@ -120,6 +121,9 @@ const NewProjects: NextPage = () => {
         }
     }
 
+    if (projects.result.status !== "ok") {
+        return (<Loader/>)
+    }
     return (
         <>
             <SimpleGrid gap='22px'>
