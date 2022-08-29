@@ -61,6 +61,7 @@ const InProgress: NextPage = () => {
 
     function projectSaved() {
         setEditProject(false);
+        refetchProjects();
     }
 
     async function completeOrCancel(complete: boolean, id: number) {
