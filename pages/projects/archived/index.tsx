@@ -41,6 +41,7 @@ const Archived: NextPage = () => {
                 duration: 5000,
                 isClosable: true,
             })
+            projects.refetch()
         } else {
             toast({
                 title: "Error",
@@ -81,6 +82,7 @@ const Archived: NextPage = () => {
                     duration: 5000,
                     isClosable: true,
                 })
+                projects.refetch()
             } else {
                 toast({
                     title: "Error",
