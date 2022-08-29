@@ -21,6 +21,7 @@ import {
     withWunderGraph
 } from "../../../components/generated/nextjs";
 import {formatToCurrency} from "../../../helper/AppUtil";
+import Loader from "../../../components/Loader";
 
 const Completed: NextPage = () => {
     const toast = useToast()
@@ -56,7 +57,9 @@ const Completed: NextPage = () => {
             })
         }
     }
-
+    if (projects.result.status !== "ok") {
+        return (<Loader/>)
+    }
     return (
         <>
             <SimpleGrid gap='22px'>
@@ -69,7 +72,6 @@ const Completed: NextPage = () => {
                         <HStack borderBottom={'1px solid #DFE0EB'} p='14px'>
                             <Text fontSize={'16px'} fontWeight='700'>Completed Projects</Text>
                         </HStack>
-                        {projects.result.status === "ok" && (
                             <Stack
                                 maxH={"85vh"}
                                 overflow={"scroll"}
@@ -146,7 +148,6 @@ const Completed: NextPage = () => {
                                     </Tbody>
                                 </Table>
                             </Stack>
-                        )}
                     </Stack>
                 </Stack>
             </SimpleGrid>

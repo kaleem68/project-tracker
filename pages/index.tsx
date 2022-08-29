@@ -1,11 +1,12 @@
 import {NextPage} from 'next';
 import {useLiveQuery, withWunderGraph} from '../components/generated/nextjs';
-import {GridItem, SimpleGrid, Stack} from "@chakra-ui/react";
+import {GridItem, SimpleGrid, Stack, Text} from "@chakra-ui/react";
 import React from "react";
 import TopFiveMostExpensiveProjects from "../components/dashboard/TopFiveMostExpensiveProjects";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from "chart.js";
 import ProjectsByStatus from "../components/dashboard/ProjectsCountByStatus";
 import ProjectsByStatusCardsList from "../components/dashboard/ProjectsByStatusCardsList";
+import Loader from "../components/Loader";
 
 ChartJS.register(
     CategoryScale,
@@ -28,23 +29,21 @@ const Dashboard: NextPage = () => {
         return count;
     }
 
+    if (mostExpensiveProjects.result.status !== "ok" || projectsCountGroupByStatus.result.status !== "ok" || countArchiveProjects.result.status !== "ok") {
+        return (<Loader/>)
+    }
     return (
         <Stack bg='#E5E5E5' h='100vh'>
-            {projectsCountGroupByStatus.result.status === "ok" &&
-                <ProjectsByStatusCardsList
-                    archiveCount={getArchiveCount()}
-                    projects={projectsCountGroupByStatus.result.data?.db_groupByProject}/>
-            }
+            <ProjectsByStatusCardsList
+                archiveCount={getArchiveCount()}
+                projects={projectsCountGroupByStatus.result.data?.db_groupByProject}/>
+
             <SimpleGrid columns={4} pt={'24px'} spacing='24px'>
                 <GridItem colSpan={2}>
-                    {mostExpensiveProjects.result.status === "ok" &&
-                        <TopFiveMostExpensiveProjects projects={mostExpensiveProjects.result.data?.db_findManyProject}/>
-                    }
+                    <TopFiveMostExpensiveProjects projects={mostExpensiveProjects.result.data?.db_findManyProject}/>
                 </GridItem>
                 <GridItem colSpan={2}>
-                    {projectsCountGroupByStatus.result.status === "ok" &&
-                        <ProjectsByStatus projects={projectsCountGroupByStatus.result.data?.db_groupByProject}/>
-                    }
+                    <ProjectsByStatus projects={projectsCountGroupByStatus.result.data?.db_groupByProject}/>
                 </GridItem>
             </SimpleGrid>
         </Stack>
