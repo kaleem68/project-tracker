@@ -36,3 +36,21 @@ npm install && npm start
 ## Tech Stack
 
 - NextJS, WunderGraph, TypeScript, PostgreSQL, react-chartjs-2, Chakra UI
+
+## Track project workings.
+- Each row define an action i.e create a project, columns define the 5 *Stages* actions. row 2, column 2 means project can be updated in In Progress stage.
+  - Row 3 colum 1 says project cannot be *Cancelled* in *New* *Stage*.
+
+
+|           	| New 	| In Progress 	| Completed 	| Cancelled 	| Archived 	|
+|-----------	|-----	|-------------	|-----------	|-----------	|----------	|
+| Create    	| Yes 	| No          	| No        	| No        	| No       	|
+| Update    	| Yes 	| Yes         	| No        	| No        	| No       	|
+| Delete    	| No  	| No          	| NO        	| No        	| Yes      	|
+| Cancel    	| No  	| Yes         	| No        	| No        	| No       	|
+| Archive   	| Yes 	| Yes         	| Yes       	| Yes       	| No       	|
+| Unarchive 	| No  	| No          	| No        	| No        	| Yes      	|
+
+## Any Questions or Suggestions?
+- Feel free to open an issue.
+
