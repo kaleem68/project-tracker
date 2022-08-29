@@ -51,6 +51,14 @@ const InProgress: NextPage = () => {
         setEditProject(true);
     }
 
+    function refetchProjects() {
+        projects.refetch({
+            input: {
+                status: {equals: "PROGRESS"}
+            }
+        })
+    }
+
     function projectSaved() {
         setEditProject(false);
     }
@@ -78,6 +86,7 @@ const InProgress: NextPage = () => {
                 duration: 5000,
                 isClosable: true,
             })
+            refetchProjects();
         } else {
             toast({
                 title: "Error",
@@ -104,6 +113,7 @@ const InProgress: NextPage = () => {
                 duration: 5000,
                 isClosable: true,
             })
+            refetchProjects();
         } else {
             toast({
                 title: "Error",
