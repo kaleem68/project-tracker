@@ -33,10 +33,6 @@ npm install && npm start
   - Number of project for each *Stage*
   - Top 5 most expensive projects.
 
-## Tech Stack
-
-- NextJS, WunderGraph, TypeScript, PostgreSQL, react-chartjs-2, Chakra UI
-
 ## Track project workings.
 - Each row define an action i.e create a project, columns define the 5 *Stages* actions. row 2, column 2 means project can be updated in In Progress stage.
   - Row 3 colum 1 says project cannot be *Cancelled* in *New* *Stage*.
@@ -50,6 +46,9 @@ npm install && npm start
 | Cancel    	| No  	| Yes         	| No        	| No        	| No       	|
 | Archive   	| Yes 	| Yes         	| Yes       	| Yes       	| No       	|
 | Unarchive 	| No  	| No          	| No        	| No        	| Yes      	|
+
+## Tech Stack
+- NextJS, WunderGraph, TypeScript, PostgreSQL, react-chartjs-2, Chakra UI
 
 ## Any Questions or Suggestions?
 - Feel free to open an issue.
