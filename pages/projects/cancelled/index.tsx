@@ -15,13 +15,13 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import {NextPage} from "next";
-import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
+import {useQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 import {formatToCurrency} from "../../../helper/AppUtil";
 import Loader from "../../../components/Loader";
 
 const Completed: NextPage = () => {
     const toast = useToast()
-    const projects = useLiveQuery.GetProjectsByStatus({
+    const projects = useQuery.GetProjectsByStatus({
         input: {
             status: {equals: "CANCELLED"}
         }
@@ -43,6 +43,7 @@ const Completed: NextPage = () => {
                 duration: 5000,
                 isClosable: true,
             })
+            refetchProjects()
         } else {
             toast({
                 title: "Error",
@@ -52,6 +53,13 @@ const Completed: NextPage = () => {
                 isClosable: true,
             })
         }
+    }
+    function refetchProjects() {
+        projects.refetch({
+            input: {
+                status: {equals: "CANCELLED"}
+            }
+        })
     }
     if (projects.result.status === "error") {
         return (<Text fontSize={"18px"} size={"xl"}>Error...</Text>)

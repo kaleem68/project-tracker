@@ -15,14 +15,14 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import {NextPage} from "next";
-import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
+import {useQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 import {formatToCurrency} from "../../../helper/AppUtil";
 import {DeleteIcon} from "@chakra-ui/icons";
 import Loader from "../../../components/Loader";
 
 const Archived: NextPage = () => {
     const toast = useToast()
-    const projects = useLiveQuery.GetArchivedProjects();
+    const projects = useQuery.GetArchivedProjects();
     const {mutate: archiveProject} = useMutation.UpdateArchiveStatus();
     const {mutate: deleteProject} = useMutation.DeleteProject();
 
@@ -41,6 +41,7 @@ const Archived: NextPage = () => {
                 duration: 5000,
                 isClosable: true,
             })
+            projects.refetch()
         } else {
             toast({
                 title: "Error",
@@ -81,6 +82,7 @@ const Archived: NextPage = () => {
                     duration: 5000,
                     isClosable: true,
                 })
+                projects.refetch()
             } else {
                 toast({
                     title: "Error",
