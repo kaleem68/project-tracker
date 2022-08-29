@@ -41,7 +41,6 @@ const Dashboard: NextPage = () => {
             <SimpleGrid columns={4} pt={'24px'} spacing='24px'>
                 <GridItem colSpan={2}>
                     <TopFiveMostExpensiveProjects projects={mostExpensiveProjects.result.data?.db_findManyProject}/>
-
                 </GridItem>
                 <GridItem colSpan={2}>
                     <ProjectsByStatus projects={projectsCountGroupByStatus.result.data?.db_groupByProject}/>
