@@ -15,13 +15,13 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import {NextPage} from "next";
-import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
+import {useQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 import {formatToCurrency} from "../../../helper/AppUtil";
 import Loader from "../../../components/Loader";
 
 const Completed: NextPage = () => {
     const toast = useToast()
-    const projects = useLiveQuery.GetProjectsByStatus({
+    const projects = useQuery.GetProjectsByStatus({
         input: {
             status: {equals: "CANCELLED"}
         }

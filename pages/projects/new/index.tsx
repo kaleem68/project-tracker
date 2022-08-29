@@ -16,7 +16,7 @@ import {
 import React, {useState} from "react";
 import {AddIcon, EditIcon} from "@chakra-ui/icons";
 import {NextPage} from "next";
-import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
+import {useQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 import CreateProject from "../../../components/CreateProject";
 import EditProject from "../../../components/EditProject";
 import {formatToCurrency} from "../../../helper/AppUtil";
@@ -25,7 +25,7 @@ import Loader from "../../../components/Loader";
 
 const NewProjects: NextPage = () => {
     const toast = useToast();
-    const projects = useLiveQuery.GetProjectsByStatus({
+    const projects = useQuery.GetProjectsByStatus({
         input: {
             status: {equals: "NEW"}
         }
@@ -63,7 +63,16 @@ const NewProjects: NextPage = () => {
         setEditProject(true);
     }
 
+    function refetchProjects() {
+        projects.refetch({
+            input: {
+                status: {equals: "NEW"}
+            }
+        })
+    }
+
     function projectSaved() {
+        refetchProjects();
         setCreateProject(false);
         setEditProject(false);
     }
@@ -75,7 +84,7 @@ const NewProjects: NextPage = () => {
                 status: "PROGRESS"
             }
         })
-        if(resp.status === "ok" && resp.data.db_updateOneProject){
+        if (resp.status === "ok" && resp.data.db_updateOneProject) {
             toast({
                 title: 'Success',
                 description: "Project in progress",
@@ -83,8 +92,8 @@ const NewProjects: NextPage = () => {
                 duration: 5000,
                 isClosable: true,
             })
-        }
-        else {
+            refetchProjects();
+        } else {
             toast({
                 title: "Error",
                 description: "Oops, Something went wrong",
@@ -94,6 +103,7 @@ const NewProjects: NextPage = () => {
             })
         }
     }
+
     async function archiveProjectStatus(id: number) {
         let resp = await archiveProject({
             input: {
@@ -101,7 +111,7 @@ const NewProjects: NextPage = () => {
                 archived: {set: true}
             }
         })
-        if(resp.status === "ok" && resp.data.db_updateOneProject){
+        if (resp.status === "ok" && resp.data.db_updateOneProject) {
             toast({
                 title: 'Success',
                 description: "Project archived",
@@ -109,8 +119,8 @@ const NewProjects: NextPage = () => {
                 duration: 5000,
                 isClosable: true,
             })
-        }
-        else {
+            refetchProjects();
+        } else {
             toast({
                 title: "Error",
                 description: "Oops, Something went wrong",
@@ -120,6 +130,7 @@ const NewProjects: NextPage = () => {
             })
         }
     }
+
     if (projects.result.status === "error") {
         return (<Text fontSize={"18px"} size={"xl"}>Error...</Text>)
     }
@@ -204,8 +215,12 @@ const NewProjects: NextPage = () => {
                                                 <Td>
                                                     <Stack
                                                         spacing={"10px"} isInline>
-                                                        <Button onClick={() => {changeStatusToProgress(data.id)}} bg={"green.300"} size={"sm"}>Start</Button>
-                                                        <Button onClick={() => {archiveProjectStatus(data.id)}} bg={"blue.300"} size={"sm"}>Archive</Button>
+                                                        <Button onClick={() => {
+                                                            changeStatusToProgress(data.id)
+                                                        }} bg={"green.300"} size={"sm"}>Start</Button>
+                                                        <Button onClick={() => {
+                                                            archiveProjectStatus(data.id)
+                                                        }} bg={"blue.300"} size={"sm"}>Archive</Button>
 
                                                         <EditIcon
                                                             onClick={() => {

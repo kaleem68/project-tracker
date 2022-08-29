@@ -1,5 +1,5 @@
 import {NextPage} from 'next';
-import {useLiveQuery, withWunderGraph} from '../components/generated/nextjs';
+import {useQuery, withWunderGraph} from '../components/generated/nextjs';
 import {GridItem, SimpleGrid, Stack, Text} from "@chakra-ui/react";
 import React from "react";
 import TopFiveMostExpensiveProjects from "../components/dashboard/TopFiveMostExpensiveProjects";
@@ -17,9 +17,9 @@ ChartJS.register(
     Legend
 );
 const Dashboard: NextPage = () => {
-    const mostExpensiveProjects = useLiveQuery.TopFiveMostExpensiveProjects()
-    const projectsCountGroupByStatus = useLiveQuery.GetProjectsCountGroupByStatus()
-    const countArchiveProjects = useLiveQuery.CountArchiveProjects();
+    const mostExpensiveProjects = useQuery.TopFiveMostExpensiveProjects()
+    const projectsCountGroupByStatus = useQuery.GetProjectsCountGroupByStatus()
+    const countArchiveProjects = useQuery.CountArchiveProjects();
 
     function getArchiveCount() {
         let count = 0;

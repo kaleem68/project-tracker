@@ -17,7 +17,7 @@ import {
 import React, {useState} from "react";
 import {EditIcon} from "@chakra-ui/icons";
 import {NextPage} from "next";
-import {useLiveQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
+import {useQuery, useMutation, withWunderGraph} from "../../../components/generated/nextjs";
 import EditProject from "../../../components/EditProject";
 import {formatToCurrency} from "../../../helper/AppUtil";
 import {EditProjectPropsHeadingStatus, UpdateProject} from "../../../helper/AppInterfaces";
@@ -25,7 +25,7 @@ import Loader from "../../../components/Loader";
 
 const InProgress: NextPage = () => {
     const toast = useToast()
-    const projects = useLiveQuery.GetProjectsByStatus({
+    const projects = useQuery.GetProjectsByStatus({
         input: {
             status: {equals: "PROGRESS"}
         }

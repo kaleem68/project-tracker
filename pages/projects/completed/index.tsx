@@ -16,7 +16,7 @@ import {
 import React from "react";
 import {NextPage} from "next";
 import {
-    useLiveQuery,
+    useQuery,
     useMutation,
     withWunderGraph
 } from "../../../components/generated/nextjs";
@@ -25,7 +25,7 @@ import Loader from "../../../components/Loader";
 
 const Completed: NextPage = () => {
     const toast = useToast()
-    const projects = useLiveQuery.GetProjectsByStatus({
+    const projects = useQuery.GetProjectsByStatus({
         input: {
             status: {equals: "COMPLETED"}
         }
