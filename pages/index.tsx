@@ -29,6 +29,9 @@ const Dashboard: NextPage = () => {
         return count;
     }
 
+    if (mostExpensiveProjects.result.status === "error" || projectsCountGroupByStatus.result.status === "error" || countArchiveProjects.result.status === "error") {
+        return (<Text fontSize={"18px"} size={"xl"}>Error...</Text>)
+    }
     if (mostExpensiveProjects.result.status !== "ok" || projectsCountGroupByStatus.result.status !== "ok" || countArchiveProjects.result.status !== "ok") {
         return (<Loader/>)
     }
