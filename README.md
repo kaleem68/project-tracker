@@ -2,9 +2,9 @@
 
 Track my project is simple project management and tracking tool with following features:
 
-- Manage projects
-- Track Project: Maintain **5** Stages of the project
-- Dashboards
+- Manage projects.
+- Track Project: Maintain **5** Stages of the project.
+- Dashboards.
 
 ## Running App
 - Make sure you have *docker* installed and running and you also need latest version of *node*.
@@ -30,12 +30,13 @@ npm install && npm start
 ### Dashboards
 
 - Home screen displays the dashboard stats with visual charts.
-  - Number of project for each *Stage*
+  - Number of project for each *Stage*.
   - Top 5 most expensive projects.
 
-## Track project workings.
-- Each row define an action i.e create a project, columns define the 5 *Stages* actions. row 2, column 2 means project can be updated in In Progress stage.
-  - Row 3 colum 1 says project cannot be *Cancelled* in *New* *Stage*.
+## Track my project workings
+- Rows define actions, E.g., Delete a project.
+- Columns represent the *Stages* of the project.
+- 3rd row, 5th columns state: A project can be *Deleted* in *Archived* stage.
 
 
 |           	| New 	| In Progress 	| Completed 	| Cancelled 	| Archived 	|
