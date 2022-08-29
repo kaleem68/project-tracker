@@ -43,6 +43,7 @@ const Completed: NextPage = () => {
                 duration: 5000,
                 isClosable: true,
             })
+            refetchProjects()
         } else {
             toast({
                 title: "Error",
@@ -52,6 +53,13 @@ const Completed: NextPage = () => {
                 isClosable: true,
             })
         }
+    }
+    function refetchProjects() {
+        projects.refetch({
+            input: {
+                status: {equals: "CANCELLED"}
+            }
+        })
     }
     if (projects.result.status === "error") {
         return (<Text fontSize={"18px"} size={"xl"}>Error...</Text>)
