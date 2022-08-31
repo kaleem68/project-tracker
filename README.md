@@ -43,7 +43,7 @@ npm install && npm start
 |-----------	|-----	|-------------	|-----------	|-----------	|----------	|
 | Create    	| Yes 	| No          	| No        	| No        	| No       	|
 | Update    	| Yes 	| Yes         	| No        	| No        	| No       	|
-| Delete    	| No  	| No          	| NO        	| No        	| Yes      	|
+| Delete    	| No  	| No          	| No        	| No        	| Yes      	|
 | Cancel    	| No  	| Yes         	| No        	| No        	| No       	|
 | Archive   	| Yes 	| Yes         	| Yes       	| Yes       	| No       	|
 | Unarchive 	| No  	| No          	| No        	| No        	| Yes      	|
