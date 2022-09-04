@@ -97,7 +97,10 @@ function EditProject({isOpen, onClose, onSuccess, defaultValues, status}: EditPr
                                 id='description'
                                 name={"description"}
                                 placeholder='description'
-                                {...register('description')}
+                                {...register('description', {
+                                    required: 'This is required',
+                                    maxLength: {value: 1000, message: 'Maximum length should be 1000'}
+                                })}
                             />
                             <FormErrorMessage>{ (errors.description?.type === 'required' || errors.description?.type === "maxLength") && errors.description.message }</FormErrorMessage>
                         </FormControl>

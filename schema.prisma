@@ -6,7 +6,7 @@ datasource db {
 model Project {
   id          Int      @id @default(autoincrement())
   name        String   @db.VarChar(255)
-  description String   @db.VarChar(255)
+  description String   @db.VarChar(1000)
   status      Status   @default(NEW)
   budget      Float    @default(0)
   createdAt   DateTime @default(now())
